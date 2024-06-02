@@ -5,17 +5,11 @@ function Footer() {
   return (
     <footer className="px-4 bg-gray-100 dark:bg-gray-700 dark:text-gray-100 border-t dark:border-gray-500">
       <div className={`${maxContent} flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0`}>
-        <div className="lg:w-1/3 hidden">
-          <h2 className="flex gap-2 text-2xl font-semibold">
-            <img src="/logo.svg" className="text-cyan-600 w-16" alt="logo" />
-            <p>Alt<span className="text-cyan-600">Product</span></p>
-          </h2>
-        </div>
         <div className="lg:w-1/3 flex gap-2 items-center">
           <figure className="w-8">
             <img src="/logo.svg" className="w-full" />
           </figure>
-          <h1 className='text-2xl'>MealTrack</h1>
+          <h1 className='text-2xl text-orange-600'>MealTrack</h1>
         </div>
 
         <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
