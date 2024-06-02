@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import { BellFill, List } from "react-bootstrap-icons";
+import { maxContent } from "../App";
 
 const user = 1 ? {displayName: 'ali', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
 const navLinks = [
@@ -19,7 +20,7 @@ function Navbar() {
 
   return (
     <nav className="px-4 dark:bg-gray-800">
-      <div className="max-w-screen-xl py-4 mx-auto border-b grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto] gap-4">
+      <div className={`${maxContent} py-4 border-b grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto] gap-4`}>
         <div className="flex gap-2 items-center">
           <figure className="w-8">
             <img src="/logo.svg" className="w-full" />
