@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import './index.css'
+import 'react-tooltip/dist/react-tooltip.css'
+// pages & comps
 import App from './App'
 import ErrorPage from './pages/ErrorPage'
 import Home from './pages/Home'
