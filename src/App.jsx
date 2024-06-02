@@ -1,7 +1,13 @@
+import { Outlet } from "react-router-dom";
+import Navbar from "./comps/Navbar";
+
 function App() {
   return (  
     <div>
-      <h2 className="bg-red-300 p-6">Hello app </h2>
+      <div className="flex flex-col">
+        <Navbar />
+        <Outlet />
+      </div>
     </div>
   );
 }
