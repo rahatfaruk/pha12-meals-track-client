@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import './index.css'
 import 'react-tooltip/dist/react-tooltip.css'
@@ -13,6 +15,8 @@ import Register from './pages/Register'
 import AuthProvider from './context/AuthProvider'
 import ThemeProvider from './context/ThemeProvider'
 
+const queryClient = new QueryClient()
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>} errorElement={<ErrorPage/>} >
@@ -25,8 +29,10 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </QueryClientProvider>
   </AuthProvider>
 )
