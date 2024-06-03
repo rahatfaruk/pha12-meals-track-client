@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { Eye, EyeSlash } from "react-bootstrap-icons";
 import useAuth from '../hooks/useAuth';
 
 function Register() {
@@ -12,15 +13,14 @@ function Register() {
 
   // handle form submit
   const onSubmit = data => {
-    console.log(data);
     // create user
     createUserWithEP(data.email, data.password, data.name, data.photo)
     .then(() => {
-      alert('user created')
+      toast.success('user created successfully')
       navigate('/')
     })
     .catch(err => {
-      alert(err.message)
+      toast.error(err.message)
       console.log(err.message);
     })
     

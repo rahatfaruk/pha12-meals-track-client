@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from "../../firebaseConfig";
 import Loading from "../comps/Loading";
 
@@ -19,6 +19,10 @@ function AuthProvider({children}) {
   const signInWithEP = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
   }
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider()
+    return signInWithPopup(auth, provider)
+  }
 
   const logout = async () => {
     return signOut(auth)
@@ -26,6 +30,13 @@ function AuthProvider({children}) {
 
   // onload page, check for user
   useEffect(() => {
+    const fakeUser = 1 ? {displayName: 'ali', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
+    setTimeout(() => {
+      setUser(fakeUser)
+      setIsLoading(false)
+    }, 750)
+    return
+
     const unsub = onAuthStateChanged(auth, currUser => {
       setUser(currUser)
       setIsLoading(false)
@@ -39,7 +50,7 @@ function AuthProvider({children}) {
     return <Loading />
   }
   return (  
-    <AuthContext.Provider value={{isLoading, setIsLoading, user, setUser, createUserWithEP, signInWithEP, logout}}>
+    <AuthContext.Provider value={{isLoading, setIsLoading, user, setUser, createUserWithEP, signInWithEP, logout, signInWithGoogle}}>
       {children}
     </AuthContext.Provider>
   );

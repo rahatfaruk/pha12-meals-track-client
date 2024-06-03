@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 import Navbar from "./comps/Navbar";
 import Footer from "./comps/Footer";
 
@@ -12,6 +13,7 @@ function App() {
         <Outlet />
         <Footer />
       </div>
+      <ToastContainer position="top-center" theme="colored" />
     </div>
   );
 }

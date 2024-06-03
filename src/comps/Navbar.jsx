@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
-import { BellFill, List } from "react-bootstrap-icons";
+import { BellFill, List, MoonStarsFill, SunFill } from "react-bootstrap-icons";
 import { maxContent } from "../App";
 import useAuth from '../hooks/useAuth';
+import useTheme from '../hooks/useTheme';
+import { toast } from "react-toastify";
 
-
-// const user = 0 ? {displayName: 'ali', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
 const navLinks = [
   {id: 1, text: 'Home', path: '/'},
   {id: 2, text: 'Meals', path: '/meals'},
@@ -16,16 +16,17 @@ const navLinks = [
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false)
   const {user, logout} = useAuth()
+  const {isDarkTheme, onClickThemeToggler} = useTheme()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
       await logout()
+      toast.info('logged out')
       navigate('/login')
     } catch(err) {
-      console.log('logged out failed', err.message);
+      toast.error('logged out failed', err.message);
     }
-
   }
 
   return (
@@ -40,6 +41,10 @@ function Navbar() {
 
         {/* profile photo || register,login btn ++ nav-toggler */}
         <div className="flex items-center justify-end md:order-1 gap-4">
+          <button onClick={onClickThemeToggler} className="p-1 text-2xl hover:scale-95 dark:text-white"> 
+           {isDarkTheme ? <MoonStarsFill/> : <SunFill/> }
+          </button>
+
           {user ?
             <div className="flex gap-2 items-center">
               <div className="relative mr-4">

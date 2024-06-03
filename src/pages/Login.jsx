@@ -3,25 +3,34 @@ import { useForm } from "react-hook-form";
 import { Eye, EyeSlash, Google } from "react-bootstrap-icons";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from '../hooks/useAuth';
+import { toast } from "react-toastify";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const { register, handleSubmit, formState: {errors: formErr} } = useForm()
-  const { signInWithEP } = useAuth()
+  const { signInWithEP, signInWithGoogle } = useAuth()
   const navigate = useNavigate()
 
   // handle form submit
   const onSubmit = data => {
-    console.log(data);
     signInWithEP(data.email, data.password)
     .then(() => {
-      alert('logged in')
+      toast.success('logged in successfully!')
       navigate('/')
     })
     .catch(err => {
-      alert(err.message)
-      console.log(err.message);
+      toast.error(err.message)
     })
+  }
+
+  const handleLoginWithGoogle = async () => {
+    try {
+      await signInWithGoogle()
+      toast.success('logged in successfully!')
+      navigate('/')
+    } catch (err) {
+      toast.error(err.message)
+    }
   }
 
   return (
@@ -52,7 +61,7 @@ function Login() {
 
         {/* other login method */}
         <div className="border-t pt-6 mt-6">
-          <button className="bg-blue-600 text-white w-full px-4 py-2 rounded-md flex items-center justify-center gap-3 hover:opacity-90"><Google /> Continue with Google</button>
+          <button onClick={handleLoginWithGoogle} className="bg-blue-600 text-white w-full px-4 py-2 rounded-md flex items-center justify-center gap-3 hover:opacity-90"><Google /> Continue with Google</button>
         </div>
 
         <p className="mt-4">Don't have an account? <Link to="/register" className="text-orange-600 hover:underline dark:text-orange-400">Register now</Link></p>
