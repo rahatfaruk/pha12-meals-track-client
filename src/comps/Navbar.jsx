@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import { BellFill, List } from "react-bootstrap-icons";
 import { maxContent } from "../App";
+import useAuth from '../hooks/useAuth';
 
-const user = 0 ? {displayName: 'ali', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
+
+// const user = 0 ? {displayName: 'ali', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
 const navLinks = [
   {id: 1, text: 'Home', path: '/'},
   {id: 2, text: 'Meals', path: '/meals'},
@@ -13,8 +15,16 @@ const navLinks = [
 
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false)
+  const {user, logout} = useAuth()
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
+    try {
+      await logout()
+      navigate('/login')
+    } catch(err) {
+      console.log('logged out failed', err.message);
+    }
 
   }
 

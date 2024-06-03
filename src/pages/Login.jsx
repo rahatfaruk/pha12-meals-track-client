@@ -1,15 +1,27 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeSlash, Google } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from '../hooks/useAuth';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const { register, handleSubmit, formState: {errors: formErr} } = useForm()
+  const { signInWithEP } = useAuth()
+  const navigate = useNavigate()
 
   // handle form submit
   const onSubmit = data => {
     console.log(data);
+    signInWithEP(data.email, data.password)
+    .then(() => {
+      alert('logged in')
+      navigate('/')
+    })
+    .catch(err => {
+      alert(err.message)
+      console.log(err.message);
+    })
   }
 
   return (
