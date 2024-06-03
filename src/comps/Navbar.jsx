@@ -4,7 +4,7 @@ import { Tooltip } from "react-tooltip";
 import { BellFill, List } from "react-bootstrap-icons";
 import { maxContent } from "../App";
 
-const user = 1 ? {displayName: 'ali', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
+const user = 0 ? {displayName: 'ali', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
 const navLinks = [
   {id: 1, text: 'Home', path: '/'},
   {id: 2, text: 'Meals', path: '/meals'},
@@ -50,7 +50,7 @@ function Navbar() {
             </div>
             :
             <div className="flex gap-3">
-              <Link to='/signin' className="inline-block px-3 py-1 rounded-md text-white bg-orange-600 hover:opacity-90">Join Us</Link>
+              <Link to='/login' className="inline-block px-3 py-1 rounded-md text-white bg-orange-600 hover:opacity-90">Join Us</Link>
             </div>
           }
 

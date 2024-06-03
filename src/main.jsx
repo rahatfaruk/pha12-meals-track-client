@@ -7,11 +7,13 @@ import 'react-tooltip/dist/react-tooltip.css'
 import App from './App'
 import ErrorPage from './pages/ErrorPage'
 import Home from './pages/Home'
+import Login from './pages/Login'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>} errorElement={<ErrorPage/>} >
       <Route index element={ <Home/> } />
+      <Route path='/login' element={ <Login/> } />
     </Route>
   )
 )
