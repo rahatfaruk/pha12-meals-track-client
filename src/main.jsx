@@ -14,6 +14,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import AuthProvider from './context/AuthProvider'
 import ThemeProvider from './context/ThemeProvider'
+import MealDetails from './pages/MealDetails';
 
 const queryClient = new QueryClient()
 
@@ -21,8 +22,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>} errorElement={<ErrorPage/>} >
       <Route index element={ <Home/> } />
-      <Route path='/login' element={ <Login/> } />
-      <Route path='/register' element={ <Register/> } />
+      <Route path='login' element={ <Login/> } />
+      <Route path='register' element={ <Register/> } />
+      <Route path='meal/:id' element={ <MealDetails/> } />
     </Route>
   )
 )
