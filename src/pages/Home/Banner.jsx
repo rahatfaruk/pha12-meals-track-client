@@ -3,7 +3,7 @@ import { maxContent } from "../../App";
 function Banner() {
   return (
     <section className="px-4">
-      <div className={`${maxContent} py-16 px-4 bg-gray-200 dark:bg-gray-800 dark:text-white rounded-lg`}>
+      <div className={`${maxContent} py-16 md:my-4 px-4 bg-gray-200 dark:bg-gray-800 dark:text-white rounded-lg`}>
         <div className="max-w-lg mx-auto text-center">
           <h1 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl capitalize">Eat healthy and your favourite meal! </h1>
 

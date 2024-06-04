@@ -4,6 +4,7 @@ import { StarFill } from "react-bootstrap-icons";
 import { maxContent } from "../../App";
 import useAxios from "../../hooks/useAxios";
 import Loading from "../../comps/Loading";
+import SectionHeader from "../../comps/SectionHeader";
 
 function Meals() {
   const { axiosPublic } = useAxios()
@@ -22,7 +23,7 @@ function Meals() {
   return (
     <section className="px-4">
       <div className={`${maxContent} py-10`}>
-        <h2 className=" mb-8 text-3xl md:text-4xl text-center"><span className="border-b-4 border-orange-600">Meals</span></h2>
+        <SectionHeader title={'Meals'} />
 
         <div role="tablist" className="tabs tabs-lifted">
           <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="All" checked />
