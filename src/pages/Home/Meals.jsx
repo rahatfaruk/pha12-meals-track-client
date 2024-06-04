@@ -26,7 +26,7 @@ function Meals() {
         <SectionHeader title={'Meals'} />
 
         <div role="tablist" className="tabs tabs-lifted">
-          <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="All" checked />
+          <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="All" defaultChecked />
           <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
               {meals.map(meal => (

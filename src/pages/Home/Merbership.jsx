@@ -35,7 +35,7 @@ const packages = [
 
 function Membership() {
   return (
-    <section className="px-4 dark:text-gray-100 dark:bg-gray-800">
+    <section className="px-4 dark:text-gray-100 dark:bg-gray-900">
       <div className={`${maxContent} py-8 md:py-12`}>
         <SectionHeader title={'Membership Plan'} desc={'Choose your meal package'} />
 
