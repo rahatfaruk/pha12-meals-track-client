@@ -38,7 +38,7 @@ function Details({ meal }) {
             <div className="mt-6 flex gap-4">
               <button className="flex items-center px-4 py-2 rounded-md text-white bg-blue-600 hover:opacity-90 text-center">
                 <span className="flex items-center gap-1"><HandThumbsUp /> Like</span>
-                <span className="inline-block ml-2 px-2 text-sm bg-orange-900 rounded-badge">{likes}</span>
+                <span className="inline-block ml-2 px-2 text-sm bg-blue-900 rounded-badge">{likes}</span>
               </button>
               <button className="inline-block px-4 py-2 rounded-md text-white bg-orange-600 hover:opacity-90 text-center">Request This Meal</button>
             </div>

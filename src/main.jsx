@@ -16,6 +16,7 @@ import AuthProvider from './context/AuthProvider'
 import ThemeProvider from './context/ThemeProvider'
 import MealDetails from './pages/MealDetails';
 import Meals from './pages/Meals';
+import UpcomingMeals from './pages/UpcomingMeals';
 
 const queryClient = new QueryClient()
 
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path='register' element={ <Register/> } />
       <Route path='meal/:id' element={ <MealDetails/> } />
       <Route path='meals' element={ <Meals/> } />
+      <Route path='upcoming-meals' element={ <UpcomingMeals/> } />
     </Route>
   )
 )
