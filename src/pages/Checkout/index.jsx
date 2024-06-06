@@ -3,6 +3,7 @@ import useAxios from '../../hooks/useAxios';
 import Loading from '../../comps/Loading';
 import { useQuery } from '@tanstack/react-query';
 import Details from './Details';
+import Payment from './Payment';
 
 function Checkout() {
   const {badge} = useParams()
@@ -20,7 +21,7 @@ function Checkout() {
     <div>
       <Details badge={badge} packageInfo={packageInfo} />
       {/* TODO: stripe payment here */}
-      
+      <Payment />
     </div>
   );
 }

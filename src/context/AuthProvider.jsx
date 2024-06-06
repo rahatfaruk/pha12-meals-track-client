@@ -30,7 +30,7 @@ function AuthProvider({children}) {
 
   // onload page, check for user
   useEffect(() => {
-    const fakeUser = 1 ? {displayName: 'ali', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
+    const fakeUser = 1 ? {displayName: 'ali', email: 'ali@mail.com', photoURL: 'https://dummyimage.com/100/000/fff&text=a'} : null
     setTimeout(() => {
       setUser(fakeUser)
       setIsLoading(false)
