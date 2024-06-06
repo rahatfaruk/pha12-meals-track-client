@@ -1,6 +1,6 @@
 import Banner from "./Banner";
 import Meals from "./Meals";
-import Membership from "./Merbership";
+import Membership from "./Membership";
 import WhatWeOffer from "./WhatWeOffer";
 
 function Home() {
