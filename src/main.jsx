@@ -18,6 +18,7 @@ import MealDetails from './pages/MealDetails';
 import Meals from './pages/Meals';
 import UpcomingMeals from './pages/UpcomingMeals';
 import Checkout from './pages/Checkout';
+import RouteGuardUser from './comps/RouteGuardUser';
 
 const queryClient = new QueryClient()
 
@@ -30,7 +31,7 @@ const router = createBrowserRouter(
       <Route path='meal/:id' element={ <MealDetails/> } />
       <Route path='meals' element={ <Meals/> } />
       <Route path='upcoming-meals' element={ <UpcomingMeals/> } />
-      <Route path='checkout/:badge' element={ <Checkout/> } />
+      <Route path='checkout/:badge' element={ <RouteGuardUser> <Checkout/> </RouteGuardUser> } />
     </Route>
   )
 )

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeSlash, Google } from "react-bootstrap-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from '../hooks/useAuth';
 import { toast } from "react-toastify";
 
@@ -10,13 +10,14 @@ function Login() {
   const { register, handleSubmit, formState: {errors: formErr} } = useForm()
   const { signInWithEP, signInWithGoogle } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
 
   // handle form submit
   const onSubmit = data => {
     signInWithEP(data.email, data.password)
     .then(() => {
       toast.success('logged in successfully!')
-      navigate('/')
+      navigate(location.state.pathname || '/')
     })
     .catch(err => {
       toast.error(err.message)
