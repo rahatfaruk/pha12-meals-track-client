@@ -21,6 +21,7 @@ import Checkout from './pages/Checkout';
 import PrivateRoute from './comps/PrivateRoute';
 import DashboardUser from './dashboardUser';
 import MyProfile from './dashboardUser/MyProfile';
+import RequestedMeals from './dashboardUser/RequestedMeals';
 
 const queryClient = new QueryClient()
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
       {/* user dashboard */}
       <Route path='dashboard-user' element={ <PrivateRoute> <DashboardUser/> </PrivateRoute> } >
         <Route path='my-profile' element={ <MyProfile /> } />
+        <Route path='requested-meals' element={ <RequestedMeals /> } />
       </Route>
     </Route>
   )

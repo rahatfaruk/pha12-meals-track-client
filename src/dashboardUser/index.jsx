@@ -5,7 +5,7 @@ import { maxContent } from "../App";
 function DashboardUser() {
   return (  
     <div className={`flex-1 px-4 dark:bg-gray-900 dark:text-white`}>
-      <div className={`${maxContent} py-4 grid md:grid-cols-[30%_1fr] lg:grid-cols-[20%_1fr] gap-4`}>
+      <div className={`${maxContent} py-4 grid md:grid-cols-[25%_1fr] lg:grid-cols-[20%_1fr] gap-4`}>
         <SideNav />
         <Outlet />
       </div>

@@ -1,6 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
 import useAxios from './useAxios';
-import Loading from '../comps/Loading';
 
 function useUserFromDb() {
   const {axiosPrivate} = useAxios()
@@ -12,8 +11,7 @@ function useUserFromDb() {
     }
   })
 
-  if (isPending) {return <Loading/>}
-  return {userData}
+  return {userData, isPending}
 }
 
 export default useUserFromDb;
