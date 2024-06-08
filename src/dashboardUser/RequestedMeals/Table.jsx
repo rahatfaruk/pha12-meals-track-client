@@ -16,7 +16,7 @@ function Table({requestedMeals}) {
           <p className="text-center py-8 px-2 text-xl font-semibold">No meals are requested!</p> :
           requestedMeals.map(rMeal => (
             <tr key={rMeal._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-orange-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-              <th scope="row" className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{rMeal.title}</th>
+              <th scope="row" className="px-4 py-4 font-medium text-gray-900 dark:text-white">{rMeal.title}</th>
               <td className="px-4 py-4">{rMeal.likes}</td>
               <td className="px-4 py-4 text-sm">{rMeal.reviews_count}</td>
               <td className="px-4 py-4 text-sm">{rMeal.status}</td>
