@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
+import { toast } from "react-toastify";
 import { BellFill, List, MoonStarsFill, SunFill } from "react-bootstrap-icons";
 import { maxContent } from "../App";
+// comps
 import useAuth from '../hooks/useAuth';
 import useTheme from '../hooks/useTheme';
-import { toast } from "react-toastify";
+import NavbarLink from './NavbarLink';
+
 
 const navLinks = [
-  {id: 1, text: 'Home', path: '/'},
-  {id: 2, text: 'Meals', path: '/meals'},
-  {id: 3, text: 'Upcoming Meals', path: '/upcoming-meals'},
+  { id: 1, text: 'Home', path: '/' },
+  { id: 2, text: 'Meals', path: '/meals' },
+  { id: 3, text: 'Upcoming Meals', path: '/upcoming-meals' },
 ]
 
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false)
-  const {user, logout} = useAuth()
-  const {isDarkTheme, onClickThemeToggler} = useTheme()
+  const { user, logout } = useAuth()
+  const { isDarkTheme, onClickThemeToggler } = useTheme()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
@@ -24,7 +27,7 @@ function Navbar() {
       await logout()
       toast.info('logged out')
       navigate('/login')
-    } catch(err) {
+    } catch (err) {
       toast.error('logged out failed', err.message);
     }
   }
@@ -41,8 +44,8 @@ function Navbar() {
 
         {/* profile photo || register,login btn ++ nav-toggler */}
         <div className="flex items-center justify-end md:order-1 gap-4">
-          <button onClick={onClickThemeToggler} className="p-1 text-2xl hover:scale-95 dark:text-white"> 
-           {isDarkTheme ? <MoonStarsFill/> : <SunFill/> }
+          <button onClick={onClickThemeToggler} className="p-1 text-2xl hover:scale-95 dark:text-white">
+            {isDarkTheme ? <MoonStarsFill /> : <SunFill />}
           </button>
 
           {user ?
@@ -77,14 +80,8 @@ function Navbar() {
         {/* links */}
         {
           <ul className={`${showLinks ? 'block' : 'hidden'} md:flex justify-center col-span-2 md:col-span-1`}>
-            {navLinks.map(link => (
-              <li key={link.id}>
-                <NavLink to={link.path} className={({ isActive }) =>
-                  `block px-4 py-2 rounded-md md:bg-transparent hover:underline hover:bg-orange-100 dark:text-white dark:hover:bg-orange-700 
-                  ${isActive ? 'text-orange-600 bg-orange-100 font-bold underline dark:bg-orange-600' : ''}`
-                }>{link.text}</NavLink>
-              </li>
-            ))}
+            {navLinks.map(link => <NavbarLink key={link.id} link={link} />)}
+            {user && <NavbarLink link={{ text: 'My-Dashboard', path: '/dashboard-user/my-profile' }} />}
           </ul>
         }
       </div>

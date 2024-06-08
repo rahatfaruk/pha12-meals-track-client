@@ -18,7 +18,9 @@ import MealDetails from './pages/MealDetails';
 import Meals from './pages/Meals';
 import UpcomingMeals from './pages/UpcomingMeals';
 import Checkout from './pages/Checkout';
-import RouteGuardUser from './comps/RouteGuardUser';
+import PrivateRoute from './comps/PrivateRoute';
+import DashboardUser from './dashboardUser';
+import MyProfile from './dashboardUser/MyProfile';
 
 const queryClient = new QueryClient()
 
@@ -31,7 +33,11 @@ const router = createBrowserRouter(
       <Route path='meal/:id' element={ <MealDetails/> } />
       <Route path='meals' element={ <Meals/> } />
       <Route path='upcoming-meals' element={ <UpcomingMeals/> } />
-      <Route path='checkout/:badge' element={ <RouteGuardUser> <Checkout/> </RouteGuardUser> } />
+      <Route path='checkout/:badge' element={ <PrivateRoute> <Checkout/> </PrivateRoute> } />
+      {/* user dashboard */}
+      <Route path='dashboard-user' element={ <PrivateRoute> <DashboardUser/> </PrivateRoute> } >
+        <Route path='my-profile' element={ <MyProfile /> } />
+      </Route>
     </Route>
   )
 )
