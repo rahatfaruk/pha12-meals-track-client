@@ -14,7 +14,7 @@ function Table({users}) {
         </thead>
         <tbody>
           {users.length < 1 ? 
-          <p className="text-center py-8 px-2 text-xl font-semibold">No Payment availabe to show!</p> :
+          <p className="text-center py-8 px-2 text-xl font-semibold">No users availabe to show!</p> :
           users.map(user => (
             <tr key={user._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-orange-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th className="px-4 py-4 text-sm max-w-xs">{user.email}</th>

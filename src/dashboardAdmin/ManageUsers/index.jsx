@@ -1,32 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import SectionHeader from "../../comps/SectionHeader";
+import { Search } from "react-bootstrap-icons";
 import useAxios from "../../hooks/useAxios";
 import Loading from "../../comps/Loading";
+import SectionHeader from "../../comps/SectionHeader";
 import Table from "./Table";
-
-const users = [
-  {
-    "_id": "user010",
-    "badge": "bronze",
-    "email": "ali@mail.com",
-    "displayName": "ali",
-    "rank": "admin"
-  },
-  {
-    "_id": "user123",
-    "badge": "silver",
-    "email": "user123@example.com",
-    "displayName": "user123",
-    "rank": "user"
-  },
-  {
-    "_id": "user456",
-    "badge": "gold",
-    "email": "user456@example.com",
-    "displayName": "user456",
-    "rank": "user"
-  }
-]
 
 function ManageUsers() {
   const {axiosPrivate} = useAxios()
@@ -37,10 +14,23 @@ function ManageUsers() {
       return res.data
     }
   })
+
   if(isPending) {return <Loading/>}
   return (  
     <div className="px-4 py-10 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto">
       <SectionHeader title={'Manage Users'} />
+
+      <form className="flex flex-col md:flex-row gap-6 mb-6">
+        <div className="flex-1 flex bg-gray-200 rounded-md">
+          <input type="text" name="search" className="flex-1 bg-transparent min-w-0 py-1 px-3" placeholder="search by username" />
+          <button type="submit" className="inline-block py-2 px-3 text-xl hover:opacity-80 bg-gray-300 rounded-r-md dark:bg-gray-700"><Search/></button>
+        </div>
+        <div className="flex-1 flex bg-gray-200 rounded-md">
+          <input type="text" name="search" className="flex-1 bg-transparent min-w-0 py-1 px-3" placeholder="search by email" />
+          <button type="submit" className="inline-block py-2 px-3 text-xl hover:opacity-80 bg-gray-300 rounded-r-md dark:bg-gray-700"><Search/></button>
+        </div>
+      </form>
+      
       <Table users={users}  />
     </div>
   );

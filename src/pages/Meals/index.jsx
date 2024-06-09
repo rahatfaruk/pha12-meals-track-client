@@ -28,7 +28,7 @@ function Meals() {
           <form className="mb-4">
             <div className="flex-1 flex bg-gray-200 rounded-md">
               <input type="text" name="search" className="flex-1 bg-transparent min-w-0 py-1 px-3" placeholder="search product name" />
-              <button type="submit" className="inline-block py-2 px-3 text-xl hover:opacity-80 bg-gray-300 rounded-r-md"><Search/></button>
+              <button type="submit" className="inline-block py-2 px-3 text-xl hover:opacity-80 bg-gray-300 rounded-r-md dark:bg-gray-700"><Search/></button>
             </div>
           </form>
           <div className="flex items-center gap-6">
