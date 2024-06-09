@@ -27,6 +27,7 @@ import PaymentHistory from './dashboardUser/PaymentHistory';
 import DashboardAdmin from './dashboardAdmin';
 import AdminRoute from './comps/AdminRoute';
 import AdminProfile from './dashboardAdmin/AdminProfile';
+import ManageUsers from './dashboardAdmin/ManageUsers';
 
 const queryClient = new QueryClient()
 
@@ -50,6 +51,7 @@ const router = createBrowserRouter(
       {/* admin dashboard */}
       <Route path='dashboard-admin' element={ <AdminRoute> <DashboardAdmin/> </AdminRoute> } >
         <Route path='admin-profile' element={ <AdminProfile /> } />
+        <Route path='manage-users' element={ <ManageUsers /> } />
       </Route>
     </Route>
   )

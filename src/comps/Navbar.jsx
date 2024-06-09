@@ -8,6 +8,7 @@ import { maxContent } from "../App";
 import useAuth from '../hooks/useAuth';
 import useTheme from '../hooks/useTheme';
 import NavbarLink from './NavbarLink';
+import useUserFromDb from '../hooks/useUserFromDb';
 
 
 const navLinks = [
@@ -19,6 +20,7 @@ const navLinks = [
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false)
   const { user, logout } = useAuth()
+  const { userData } = useUserFromDb()
   const { isDarkTheme, onClickThemeToggler } = useTheme()
   const navigate = useNavigate()
 
@@ -82,7 +84,7 @@ function Navbar() {
           <ul className={`${showLinks ? 'block' : 'hidden'} md:flex justify-center col-span-2 md:col-span-1`}>
             {navLinks.map(link => <NavbarLink key={link.id} link={link} />)}
             {user && <NavbarLink link={{ text: 'My-Dashboard', path: '/dashboard-user/my-profile' }} />}
-            <NavbarLink link={{ text: 'Admin-Dashboard', path: '/dashboard-admin/admin-profile' }} />
+            {user && (userData?.rank==='admin') && <NavbarLink link={{ text: 'Admin-Dashboard', path: '/dashboard-admin/admin-profile' }} />}
           </ul>
         }
       </div>

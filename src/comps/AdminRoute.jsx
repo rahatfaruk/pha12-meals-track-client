@@ -17,7 +17,7 @@ function AdminRoute({children}) {
 
   if (isPending) {
     return <Loading />
-  } else if (userData?.isAdmin) { 
+  } else if (userData?.rank === 'admin') { 
     return <>{children}</> 
   }
   return <Navigate to={'/login'} state={{pathname: location.pathname}} replace={true} />
