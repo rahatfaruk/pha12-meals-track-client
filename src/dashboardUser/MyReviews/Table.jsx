@@ -21,7 +21,7 @@ function Table({reviews}) {
               <td className="px-4 py-4">{review.likes}</td>
               <td className="px-4 py-4 text-sm max-w-xs">{review.review_text}</td>
               <td className="px-4 py-4 text-sm flex gap-3 flex-wrap lg:flex-nowrap items-center.">
-                <Button className={'bg-blue-700'}>Edit</Button>
+                <Button className={'!bg-blue-600'}>Edit</Button>
                 <Button className={'bg-red-600'}>Delete</Button>
                 <Button>View meal</Button>
               </td>

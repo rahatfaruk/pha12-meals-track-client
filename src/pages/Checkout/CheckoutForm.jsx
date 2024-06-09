@@ -35,6 +35,7 @@ function CheckoutForm() {
     if (paymentIntent?.status === 'succeeded') {
       const {amount, id, currency} = paymentIntent
       const utcTimeStr = new Date().toUTCString()
+      
       toast.success('payment succeeded!')
       setMessage('payment succeeded!')
       setTrxId(id)
@@ -43,6 +44,8 @@ function CheckoutForm() {
       const myPaymentInfo = {
         amount, 
         currency, 
+        trx_id: id,
+        email: user.email,
         created_at: new Date(utcTimeStr).getTime()
       }
       // TODO: store myPaymentInfo in db 

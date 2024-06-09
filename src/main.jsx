@@ -23,6 +23,7 @@ import DashboardUser from './dashboardUser';
 import MyProfile from './dashboardUser/MyProfile';
 import RequestedMeals from './dashboardUser/RequestedMeals';
 import MyReviews from './dashboardUser/MyReviews';
+import PaymentHistory from './dashboardUser/PaymentHistory';
 
 const queryClient = new QueryClient()
 
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
         <Route path='my-profile' element={ <MyProfile /> } />
         <Route path='requested-meals' element={ <RequestedMeals /> } />
         <Route path='my-reviews' element={ <MyReviews /> } />
+        <Route path='payment-history' element={ <PaymentHistory /> } />
       </Route>
     </Route>
   )
