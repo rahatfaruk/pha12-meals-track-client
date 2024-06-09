@@ -24,6 +24,9 @@ import MyProfile from './dashboardUser/MyProfile';
 import RequestedMeals from './dashboardUser/RequestedMeals';
 import MyReviews from './dashboardUser/MyReviews';
 import PaymentHistory from './dashboardUser/PaymentHistory';
+import DashboardAdmin from './dashboardAdmin';
+import AdminRoute from './comps/AdminRoute';
+import AdminProfile from './dashboardAdmin/AdminProfile';
 
 const queryClient = new QueryClient()
 
@@ -43,6 +46,10 @@ const router = createBrowserRouter(
         <Route path='requested-meals' element={ <RequestedMeals /> } />
         <Route path='my-reviews' element={ <MyReviews /> } />
         <Route path='payment-history' element={ <PaymentHistory /> } />
+      </Route>
+      {/* admin dashboard */}
+      <Route path='dashboard-admin' element={ <AdminRoute> <DashboardAdmin/> </AdminRoute> } >
+        <Route path='admin-profile' element={ <AdminProfile /> } />
       </Route>
     </Route>
   )

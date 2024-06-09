@@ -82,6 +82,7 @@ function Navbar() {
           <ul className={`${showLinks ? 'block' : 'hidden'} md:flex justify-center col-span-2 md:col-span-1`}>
             {navLinks.map(link => <NavbarLink key={link.id} link={link} />)}
             {user && <NavbarLink link={{ text: 'My-Dashboard', path: '/dashboard-user/my-profile' }} />}
+            <NavbarLink link={{ text: 'Admin-Dashboard', path: '/dashboard-admin/admin-profile' }} />
           </ul>
         }
       </div>
