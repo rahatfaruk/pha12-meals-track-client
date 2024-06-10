@@ -13,6 +13,7 @@ function AddForm() {
       ingredients: data.ingredients.split(',').map(ing => ing.trim()),
       post_time: new Date().getTime(),
       likes: 0,
+      reviews_count: 0,
       admin_email: user.email,
       admin_name: user.displayName
     }

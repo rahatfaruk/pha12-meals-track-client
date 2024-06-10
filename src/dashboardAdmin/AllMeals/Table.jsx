@@ -8,7 +8,7 @@ function Table({meals}) {
           <tr>
             <th scope="col" className="px-4 py-3">Title</th>
             <th scope="col" className="px-4 py-3">Likes</th>
-            <th scope="col" className="px-4 py-3">Reviews-count</th>
+            <th scope="col" className="px-4 py-3">Reviews</th>
             <th scope="col" className="px-4 py-3">Action</th>
           </tr>
         </thead>
