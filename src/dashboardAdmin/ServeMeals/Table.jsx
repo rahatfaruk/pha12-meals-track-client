@@ -19,24 +19,49 @@ const modifiedReviews = [
   },
 
 ]
+// requestedMeals.json >> all-data
+// meals.json >> title
+// users.json >> email, displayName
+const serveMeals = [
+  {
+    "_id": "1",
+    "meal_id": "meal1",
+    "email": "ali@mail.com",
+    "status": "requested",
+    // meals
+    "title": "Scrambled Eggs with Bacon",
+    // users
+    "displayName": "ali",
+  },
+  {
+    "_id": "2",
+    "meal_id": "meal2",
+    "email": "sia@mail.com",
+    "status": "delivered",
+    // meals
+    "title": "Scrambled Eggs with Bacon",
+    // users
+    "displayName": "ali",
+  },
+]
 
-function Table({reviews}) {
+function Table({}) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs md:text-base text-gray-700 uppercase bg-orange-100 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-4 py-3">Meal Title</th>
-            <th scope="col" className="px-4 py-3">Review text</th>
-            <th scope="col" className="px-4 py-3">Likes</th>
-            <th scope="col" className="px-4 py-3">Reviews</th>
+            <th scope="col" className="px-4 py-3">Email</th>
+            <th scope="col" className="px-4 py-3">Username</th>
+            <th scope="col" className="px-4 py-3">Status</th>
             <th scope="col" className="px-4 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
-          {modifiedReviews.length < 1 ? 
+          {serveMeals.length < 1 ? 
           <p className="text-center py-8 px-2 text-xl font-semibold">No reviews availabe to show!</p> :
-          modifiedReviews.map(review => <TableRow key={review._id} review={review} />)}
+          serveMeals.map(meal => <TableRow key={meal._id} meal={meal} />)}
         </tbody>
       </table>
     </div>
@@ -45,17 +70,16 @@ function Table({reviews}) {
 
 export default Table
 
-function TableRow({review}) {
-  // TODO: get meal from db based on meal_id inside review 
+function TableRow({meal}) {
+  // TODO: get user and meal based on serve email and meal_id
   return (  
     <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-orange-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-      <td className="px-4 py-4 text-sm max-w-xs">{review.title}</td>
-      <td className="px-4 py-4 text-sm max-w-xs">{review.review_text}</td>
-      <td className="px-4 py-4 text-sm max-w-xs">{review.likes}</td>
-      <td className="px-4 py-4 text-sm max-w-xs">{review.reviews_count}</td>
+      <td className="px-4 py-4 text-sm max-w-xs">{meal.title}</td>
+      <td className="px-4 py-4 text-sm max-w-xs">{meal.email}</td>
+      <td className="px-4 py-4 text-sm max-w-xs">{meal.displayName}</td>
+      <td className="px-4 py-4 text-sm max-w-xs">{meal.status}</td>
       <td className="px-4 py-4 text-sm max-w-xs flex gap-4 flex-wrap">
-        <Button className="bg-red-600">Delete</Button>
-        <Button >View Meal</Button>
+        <Button >Serve</Button>
       </td>
     </tr>
   );

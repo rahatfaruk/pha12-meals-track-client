@@ -31,6 +31,7 @@ import ManageUsers from './dashboardAdmin/ManageUsers';
 import AllMeals from './dashboardAdmin/AllMeals';
 import AddMeal from './dashboardAdmin/AddMeal';
 import AllReviews from './dashboardAdmin/AllReviews';
+import ServeMeals from './dashboardAdmin/ServeMeals';
 
 const queryClient = new QueryClient()
 
@@ -58,6 +59,7 @@ const router = createBrowserRouter(
         <Route path='all-meals' element={ <AllMeals /> } />
         <Route path='add-meal' element={ <AddMeal /> } />
         <Route path='all-reviews' element={ <AllReviews /> } />
+        <Route path='serve-meals' element={ <ServeMeals /> } />
       </Route>
     </Route>
   )
