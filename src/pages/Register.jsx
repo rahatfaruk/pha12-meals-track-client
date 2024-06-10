@@ -4,25 +4,30 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
 import useAuth from '../hooks/useAuth';
+import useAxios from "../hooks/useAxios";
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false)
   const { register, handleSubmit, formState: {errors: formErr} } = useForm()
-  const { createUserWithEP } = useAuth()
   const navigate = useNavigate()
+  const { createUserWithEP } = useAuth()
+  const {axiosPrivate} = useAxios()
 
   // handle form submit
-  const onSubmit = data => {
+  const onSubmit = async (data) => {
     // create user
-    createUserWithEP(data.email, data.password, data.name, data.photo)
-    .then(() => {
+    try {
+      const credential = await createUserWithEP(data.email, data.password, data.name, data.photo)
+      const {displayName, email} = credential.user
+      // send req to create user in db
+      await axiosPrivate.post(`/create-user?email=${email}`, {displayName, email})
       toast.success('user created successfully')
       navigate('/')
-    })
-    .catch(err => {
+    } 
+    catch (err) {
       toast.error(err.message)
-      console.log(err.message);
-    })
+      console.log(err.message);      
+    }
     
   }
 
