@@ -1,7 +1,7 @@
 import NavbarLink from "../../comps/NavbarLink";
 
 const navLinks = [
-  { id: 1, text: 'Admin Profile', path: '/dashboard-admin/my-profile' },
+  { id: 1, text: 'Admin Profile', path: '/dashboard-admin/admin-profile' },
   { id: 2, text: 'Manage Users', path: '/dashboard-admin/manage-users' },
   { id: 3, text: 'Add Meal', path: '/dashboard-admin/add-meal' },
   { id: 4, text: 'All Meals', path: '/dashboard-admin/all-meals' },
