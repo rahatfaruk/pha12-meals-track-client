@@ -9,7 +9,7 @@ function Home() {
       <Banner />
       <Meals />
       <WhatWeOffer />
-      <Membership />
+      {/* <Membership /> */}
     </div>
   );
 }

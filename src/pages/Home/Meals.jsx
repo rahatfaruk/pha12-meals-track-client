@@ -11,7 +11,7 @@ function Meals() {
   const { data: meals, isPending } = useQuery({
     queryKey: ['hompage-meals'],
     queryFn: async () => {
-      const res = await axiosPublic.get('/meals.json')
+      const res = await axiosPublic.get('/homepage-meals')
       return res.data
     }
   })
@@ -22,7 +22,7 @@ function Meals() {
   return (
     <section className="px-4">
       <div className={`${maxContent} py-10`}>
-        <SectionHeader title={'Meals'} />
+        <SectionHeader title={'Latest Meals'} />
 
         <div role="tablist" className="tabs tabs-lifted">
           <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="All" defaultChecked />

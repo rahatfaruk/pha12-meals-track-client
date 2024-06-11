@@ -3,7 +3,7 @@ import { maxContent } from "../../App";
 import SectionHeader from "../../comps/SectionHeader";
 
 function Details({ meal }) {
-  const { image, title, description, likes, post_time, ingredients, rating, admin_name } = meal 
+  const { image, title, description, likes, post_time, ingredients, rating, admin_name, admin_email } = meal 
   
   return (
     <section className="px-4">
@@ -20,6 +20,10 @@ function Details({ meal }) {
               <li className="flex items-center gap-4 border p-2 rounded-t-md">
                 <h4 className="font-semibold min-w-24 md:w-1/3">Admin name:</h4>
                 <p>{admin_name}</p>
+              </li>
+              <li className="flex items-center gap-4 border p-2">
+                <h4 className="font-semibold min-w-24 md:w-1/3">Admin email:</h4>
+                <p>{admin_email}</p>
               </li>
               <li className="flex items-center gap-4 border p-2">
                 <h4 className="font-semibold min-w-24 md:w-1/3">Post time:</h4>

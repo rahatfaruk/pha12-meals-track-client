@@ -13,14 +13,12 @@ function MealDetails() {
   const { data: meal, isPending } = useQuery({
     queryKey: ['meal-details', id],
     queryFn: async () => {
-      const res = await axiosPublic.get('/meals.json')
-      return res.data.find(meal => meal._id === id)
+      const res = await axiosPublic.get(`/meals/${id}`)
+      return res.data
     }
   })
 
-  if (isPending) {
-    return <Loading />
-  }
+  if (isPending) {return <Loading />}
   return (  
     <div className="flex-1 dark:bg-gray-900 dark:text-gray-100">
       <Details meal={meal} />

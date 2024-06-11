@@ -10,8 +10,8 @@ function Reviews({meal}) {
   const {data: reviews, isPending} = useQuery({
     queryKey: ['reviews', meal._id],
     queryFn: async () => {
-      const res = await axiosPublic.get('/reviews.json')
-      return res.data.filter(review => review.meal_id === meal._id)
+      const res = await axiosPublic.get(`/reviews/${meal._id}`)
+      return res.data 
     }
   })
 
