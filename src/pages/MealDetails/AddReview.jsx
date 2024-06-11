@@ -50,15 +50,18 @@ function AddReview({meal_id, refetch}) {
             <input type="text" {...register('review_text', {required:true})} className="border w-full min-w-0 px-3 py-2 rounded-md bg-gray-50 shadow dark:text-gray-700" placeholder="your review text about this meal" />
             {formErr.review_text && <p className="text-sm text-red-500 mt-2">This field is required</p>}
           </label>
-          <label className="block mb-4">
-            <span className="block mb-1 text-sm text-gray-600 dark:text-gray-400">Your rating</span>
-            <input type="text" {...register('rating', {required:true, min:0, max:5})} className="border w-full min-w-0 px-3 py-2 rounded-md bg-gray-50 shadow dark:text-gray-700" placeholder="e.g. 4.4" />
-            {formErr.rating && <p className="text-sm text-red-500 mt-2">This field is required. Min: 0, max: 5</p>}
-          </label>
-          
 
-          <div className="mt-6">
-            <button type="submit" className="bg-orange-600 text-white w-full px-4 py-2 rounded-md hover:opacity-90">Add Review</button>
+          <div className="flex gap-6">
+            <label className="flex-1 block mb-4">
+              <span className="block mb-1 text-sm text-gray-600 dark:text-gray-400">Your rating</span>
+              <input type="text" {...register('rating', {required:true, min:0, max:5})} className="border w-full min-w-0 px-3 py-2 rounded-md bg-gray-50 shadow dark:text-gray-700" placeholder="e.g. 4.4" />
+              {formErr.rating && <p className="text-sm text-red-500 mt-2">This field is required. Min: 0, max: 5</p>}
+            </label>
+            
+
+            <div className="mt-6">
+              <button type="submit" className="bg-orange-600 text-white w-full px-4 py-2 rounded-md hover:opacity-90">Add Review</button>
+            </div>
           </div>
         </form>
     </div>

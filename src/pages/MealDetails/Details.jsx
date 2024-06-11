@@ -5,14 +5,14 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxios from "../../hooks/useAxios";
 
-function Details({ meal }) {
+function Details({ meal, refetchMeal }) {
   const { _id, image, title, description, likes, post_time, ingredients, rating, admin_name, admin_email } = meal 
   const {user} = useAuth()
   const {axiosPrivate} = useAxios()
 
   const handleRequestMeal = async () => {
     if (!user) {
-      toast.error('Requires logged in!')
+      toast.error('Requires login!')
       return 
     }
     const newRequestMeal = {
@@ -24,6 +24,11 @@ function Details({ meal }) {
     // send post req
     await axiosPrivate.post('/add-requested-meal', newRequestMeal)
     toast.success('requested-meal added!')
+  }
+
+  const handleLikeBtn = async () => {
+    await axiosPrivate.patch(`/inc-meal-like?email=${user.email}`, {meal_id:_id})
+    refetchMeal()
   }
   
   return (
@@ -61,7 +66,7 @@ function Details({ meal }) {
             </ul>
 
             <div className="mt-6 flex gap-4">
-              <button className="flex items-center px-4 py-2 rounded-md text-white bg-blue-600 hover:opacity-90 text-center">
+              <button onClick={handleLikeBtn} className="flex items-center px-4 py-2 rounded-md text-white bg-blue-600 hover:opacity-90 text-center">
                 <span className="flex items-center gap-1"><HandThumbsUp /> Like</span>
                 <span className="inline-block ml-2 px-2 text-sm bg-blue-900 rounded-badge">{likes}</span>
               </button>

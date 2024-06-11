@@ -10,7 +10,7 @@ function MealDetails() {
   const { axiosPublic } = useAxios()
   const {id} = useParams()
 
-  const { data: meal, isPending } = useQuery({
+  const { data: meal, isPending, refetch:refetchMeal } = useQuery({
     queryKey: ['meal-details', id],
     queryFn: async () => {
       const res = await axiosPublic.get(`/meals/${id}`)
@@ -21,7 +21,7 @@ function MealDetails() {
   if (isPending) {return <Loading />}
   return (  
     <div className="flex-1 dark:bg-gray-900 dark:text-gray-100">
-      <Details meal={meal} />
+      <Details meal={meal} refetchMeal={refetchMeal} />
       <Reviews meal_id={meal._id} />
     </div>
   );
