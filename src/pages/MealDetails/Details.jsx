@@ -1,9 +1,30 @@
 import { HandThumbsUp, HandThumbsUpFill, StarFill } from "react-bootstrap-icons";
 import { maxContent } from "../../App";
 import SectionHeader from "../../comps/SectionHeader";
+import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
+import useAxios from "../../hooks/useAxios";
 
 function Details({ meal }) {
-  const { image, title, description, likes, post_time, ingredients, rating, admin_name, admin_email } = meal 
+  const { _id, image, title, description, likes, post_time, ingredients, rating, admin_name, admin_email } = meal 
+  const {user} = useAuth()
+  const {axiosPrivate} = useAxios()
+
+  const handleRequestMeal = async () => {
+    if (!user) {
+      toast.error('Requires logged in!')
+      return 
+    }
+    const newRequestMeal = {
+      meal_id: _id,
+      email: user.email,
+      status: 'requested'
+    }
+    
+    // send post req
+    await axiosPrivate.post('/add-requested-meal', newRequestMeal)
+    toast.success('requested-meal added!')
+  }
   
   return (
     <section className="px-4">
@@ -44,7 +65,7 @@ function Details({ meal }) {
                 <span className="flex items-center gap-1"><HandThumbsUp /> Like</span>
                 <span className="inline-block ml-2 px-2 text-sm bg-blue-900 rounded-badge">{likes}</span>
               </button>
-              <button className="inline-block px-4 py-2 rounded-md text-white bg-orange-600 hover:opacity-90 text-center">Request This Meal</button>
+              <button onClick={handleRequestMeal} className="inline-block px-4 py-2 rounded-md text-white bg-orange-600 hover:opacity-90 text-center">Request This Meal</button>
             </div>
           </div>
         </div>

@@ -7,8 +7,8 @@ import { maxContent } from "../App";
 // comps
 import useAuth from '../hooks/useAuth';
 import useTheme from '../hooks/useTheme';
-import NavbarLink from './NavbarLink';
 import useUserFromDb from '../hooks/useUserFromDb';
+import NavbarLink from './NavbarLink';
 
 
 const navLinks = [
@@ -20,7 +20,6 @@ const navLinks = [
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false)
   const { user, logout } = useAuth()
-  const { userData } = useUserFromDb()
   const { isDarkTheme, onClickThemeToggler } = useTheme()
   const navigate = useNavigate()
 
@@ -80,16 +79,29 @@ function Navbar() {
         </div>
 
         {/* links */}
-        {
-          <ul className={`${showLinks ? 'block' : 'hidden'} md:flex justify-center col-span-2 md:col-span-1`}>
-            {navLinks.map(link => <NavbarLink key={link.id} link={link} />)}
-            {user && <NavbarLink link={{ text: 'My-Dashboard', path: '/dashboard-user/my-profile' }} />}
-            {user && (userData?.rank==='admin') && <NavbarLink link={{ text: 'Admin-Dashboard', path: '/dashboard-admin/admin-profile' }} />}
-          </ul>
-        }
+        <ul className={`${showLinks ? 'block' : 'hidden'} md:flex justify-center col-span-2 md:col-span-1`}>
+          {navLinks.map(link => <NavbarLink key={link.id} link={link} />)}
+          {user && <NavbarLink link={{ text: 'My-Dashboard', path: '/dashboard-user/my-profile' }} />}
+          {user && <AdminNavLinks />}
+        </ul>
+        
       </div>
     </nav>
   );
 }
 
 export default Navbar;
+
+// Check admin only after user is available
+function AdminNavLinks() {
+  const { userData, isPending } = useUserFromDb()
+
+  if (isPending) return
+  if (userData.rank === 'admin') {
+    return (  
+      <NavbarLink link={{ text: 'Admin-Dashboard', path: '/dashboard-admin/admin-profile' }} />
+    );
+  }
+}
+
+export { AdminNavLinks };

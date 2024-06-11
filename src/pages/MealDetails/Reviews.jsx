@@ -5,12 +5,12 @@ import { maxContent } from "../../App";
 import Loading from '../../comps/Loading';
 import AddReview from './AddReview';
 
-function Reviews({meal}) {
+function Reviews({meal_id}) {
   const {axiosPublic} = useAxios()
-  const {data: reviews, isPending} = useQuery({
-    queryKey: ['reviews', meal._id],
+  const {data: reviews, isPending, refetch} = useQuery({
+    queryKey: ['reviews', meal_id],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/reviews/${meal._id}`)
+      const res = await axiosPublic.get(`/reviews/${meal_id}`)
       return res.data 
     }
   })
@@ -22,7 +22,7 @@ function Reviews({meal}) {
     <section className="px-4">
       <div className={`${maxContent} py-6 pb-10`}>
         <h2 className="text-2xl md:text-3xl mb-3">Reviews</h2>
-        <AddReview />
+        <AddReview meal_id={meal_id} refetch={refetch} />
         <div className='grid md:grid-cols-2 gap-6'>
           {reviews.length > 0 ?
             reviews.map(review => <Review key={review._id} review={review} />) :

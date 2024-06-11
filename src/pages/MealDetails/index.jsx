@@ -22,7 +22,7 @@ function MealDetails() {
   return (  
     <div className="flex-1 dark:bg-gray-900 dark:text-gray-100">
       <Details meal={meal} />
-      <Reviews meal={meal} />
+      <Reviews meal_id={meal._id} />
     </div>
   );
 }
