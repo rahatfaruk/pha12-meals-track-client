@@ -8,7 +8,7 @@ function useUserFromDb() {
   const {data:userData, isPending} = useQuery({
     queryKey: ['userFromDb'],
     queryFn: async () => {
-      const res = await axiosPrivate.get(`/users/${user.email}`)
+      const res = await axiosPrivate.get(`/users/${user?.email}`)
       return res.data 
     }
   })

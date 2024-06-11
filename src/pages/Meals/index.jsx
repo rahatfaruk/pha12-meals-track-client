@@ -12,7 +12,7 @@ function Meals() {
   const {data:meals, isPending} = useQuery({
     queryKey: ['all-meals'],
     queryFn: async () => {
-      const res = await axiosPublic.get('/meals.json')
+      const res = await axiosPublic.get('/meals')
       return res.data
     }
   })

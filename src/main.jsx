@@ -42,7 +42,7 @@ const router = createBrowserRouter(
       <Route index element={ <Home/> } />
       <Route path='login' element={ <Login/> } />
       <Route path='register' element={ <Register/> } />
-      <Route path='meal/:id' element={ <MealDetails/> } />
+      <Route path='meals/:id' element={ <MealDetails/> } />
       <Route path='meals' element={ <Meals/> } />
       <Route path='upcoming-meals' element={ <UpcomingMeals/> } />
       <Route path='checkout/:badge' element={ <PrivateRoute> <Checkout/> </PrivateRoute> } />

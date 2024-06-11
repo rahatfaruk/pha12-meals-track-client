@@ -1,7 +1,7 @@
 import { StarFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
-function MealCard({meal, children}) {
+function MealCard({meal, children, hideDetailsBtn}) {
   const {_id, image, title, rating, price, category} = meal
   return (
     <div className="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -14,7 +14,7 @@ function MealCard({meal, children}) {
         <p className="mb-2">Category: {category}</p>
         <div className="flex justify-between gap-4 items-center">
           <p className="text-xl font-semibold text-orange-600 ">${price}</p>
-          <Link to={`/meal/${_id}`} className="inline-block px-4 py-1 rounded-md text-white bg-orange-600 hover:opacity-90">Details</Link>
+          {!hideDetailsBtn && <Link to={`/meals/${_id}`} className="inline-block px-4 py-1 rounded-md text-white bg-orange-600 hover:opacity-90">Details</Link>}
         </div>
         {children}
       </div>
