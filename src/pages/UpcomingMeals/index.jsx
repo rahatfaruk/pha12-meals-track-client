@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { HandThumbsUp } from "react-bootstrap-icons";
 import { maxContent } from "../../App";
 // comps
 import useAxios from "../../hooks/useAxios";
+import useUserFromDb from "../../hooks/useUserFromDb";
 import SectionHeader from "../../comps/SectionHeader";
 import Loading from "../../comps/Loading";
 import MealCard from "../../comps/MealCard";
-import { HandThumbsUp } from "react-bootstrap-icons";
-import useUserFromDb from "../../hooks/useUserFromDb";
 
 function UpcomingMeals() {
   const { axiosPublic, axiosPrivate } = useAxios()

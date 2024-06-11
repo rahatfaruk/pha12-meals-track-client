@@ -1,12 +1,10 @@
-import useAuth from "../hooks/useAuth";
 import useUserFromDb from "../hooks/useUserFromDb";
 import SectionHeader from "../comps/SectionHeader";
 import Loading from "../comps/Loading";
 
 
 function MyProfile() {
-  const {user} = useAuth()
-  const {userData, isPending} = useUserFromDb()
+  const {userData, isPending, user} = useUserFromDb()
 
   if (isPending) {return <Loading/>}
   return (  

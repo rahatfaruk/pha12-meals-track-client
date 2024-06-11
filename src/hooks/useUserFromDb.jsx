@@ -13,7 +13,7 @@ function useUserFromDb() {
     }
   })
 
-  return {userData, isPending}
+  return {userData, isPending, user}
 }
 
 export default useUserFromDb;
