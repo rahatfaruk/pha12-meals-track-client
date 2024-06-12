@@ -20,7 +20,7 @@ function Checkout() {
   return (  
     <div>
       <Details badge={badge} packageInfo={packageInfo} />
-      <Payment badge={badge} packageInfo={packageInfo} />
+      <Payment price={packageInfo.price} />
     </div>
   );
 }

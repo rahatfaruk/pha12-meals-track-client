@@ -42,7 +42,7 @@ function CheckoutForm() {
        
       // my custom payment info object
       const myPaymentInfo = {
-        amount, 
+        amount: amount/100, 
         currency, 
         trx_id: id,
         email: user.email,
