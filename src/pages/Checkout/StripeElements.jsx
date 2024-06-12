@@ -12,7 +12,7 @@ import CheckoutForm from "./CheckoutForm";
 // load stripe-promise
 const stripePromise = loadStripe(import.meta.env.VITE_stripePublishKey)
 
-function StripeElements() {
+function StripeElements({packageInfo, badge}) {
   const [clientSecret, setClientSecret] = useState('')
   const {axiosPrivate, axiosPublic} = useAxios()
   const {user} = useAuth()
@@ -22,21 +22,10 @@ function StripeElements() {
       theme: "stripe"
     }
   }
-  
-  const { data:price, isPending } = useQuery({
-    queryKey: ['requested-meals', user.email],
-    queryFn: async () => {
-      const res = await axiosPrivate.get(`/requested-meals/${user.email}`)
-      const totalPrice = res.data.reduce((total, rMeal) => (total + rMeal.price), 0)
-      return totalPrice
-    }
-  })  
 
   // ## generate client-secret-key by creating payment-intent 
   useEffect(() => {
-    if (!price) {return}
-
-    axiosPrivate.post('/create-payment-intent', {price})
+    axiosPrivate.post('/create-payment-intent', {price: packageInfo.price})
     .then((res) => {
       setClientSecret(res.data.clientSecret);
     })
@@ -44,9 +33,9 @@ function StripeElements() {
       toast.error('Failed to load payment form.');
       console.log(err.message);
     })
-  }, [price])
+  }, [])
 
-  if (!clientSecret || isPending) { <Loading/> }
+  if (!clientSecret) { <Loading/> }
   return (  
     <div>
       {clientSecret && (
