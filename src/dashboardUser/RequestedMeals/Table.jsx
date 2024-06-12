@@ -6,7 +6,7 @@ function Table({requestedMeals}) {
           <tr>
             <th scope="col" className="px-4 py-3">Meal title</th>
             <th scope="col" className="px-4 py-3">Likes</th>
-            <th scope="col" className="px-4 py-3">Total-reviews</th>
+            <th scope="col" className="px-4 py-3">Reviews</th>
             <th scope="col" className="px-4 py-3">Status</th>
             <th scope="col" className="px-4 py-3">Action</th>
           </tr>

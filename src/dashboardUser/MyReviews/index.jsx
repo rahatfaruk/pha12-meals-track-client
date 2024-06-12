@@ -13,7 +13,13 @@ function MyReviews() {
     queryKey: ['my-reviews'],
     queryFn: async () => {
       const res = await axiosPrivate.get(`/reviews-with-meals/${user.email}`)
-      return res.data
+      const {meals, reviews} = res.data 
+      // make an array where each review also contains correspond meal 
+      let customReviews = reviews.map(review => {
+        const targetMeal = meals.find(meal => meal._id === review.meal_id)
+        return {...targetMeal, ...review}
+      })
+      return customReviews
     }
   })
 
