@@ -1,24 +1,23 @@
+import { useQuery } from "@tanstack/react-query";
 import SectionHeader from "../../comps/SectionHeader";
+import useAuth from "../../hooks/useAuth";
 import Table from "./Table";
-const payments = [
-  {
-    "_id": "pid1",
-    "amount": 10.50,
-    "currency": "usd",
-    "created_at": 1707408400000, 
-    "trx_id": "trx_001",
-    "email": "ali@mail.com"
-  },
-  {
-    "_id": "pid2",
-    "amount": 15.25,
-    "currency": "usd",
-    "created_at": 1707412000000, 
-    "trx_id": "trx_002",
-    "email": "ali@mail.com" 
-  },
-]
+import Loading from "../../comps/Loading";
+import useAxios from "../../hooks/useAxios";
+
 function PaymentHistory() {
+  const {user} = useAuth()
+  const {axiosPrivate} = useAxios()
+  const { data:payments, isPending } = useQuery({
+    queryKey: ['my-payments'],
+    queryFn: async () => {
+      const res = await axiosPrivate.get(`/my-payments/${user.email}`)
+      return res.data
+    }
+  })
+
+  if (isPending) {return <Loading />}
+
   return (  
     <div className="px-4 py-10 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto">
       <SectionHeader title={'Payment History'} />
