@@ -2,6 +2,19 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 
 const inputClass = "border w-full min-w-0 px-3 py-2 rounded-md bg-gray-50 shadow dark:text-gray-700"
+
+function Modal() {
+  return (
+    <dialog id="my_modal_1" className="modal">
+      <div className="modal-box">
+        <AddForm />
+      </div>
+    </dialog>
+  );
+}
+export default Modal;
+
+
 function AddForm() {
   const {user} = useAuth()
   const { register, handleSubmit, formState: {errors: formErr} } = useForm()
@@ -81,4 +94,3 @@ function AddForm() {
   );
 }
 
-export default AddForm;

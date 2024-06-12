@@ -10,10 +10,10 @@ function RequestedMeals() {
   const {user} = useAuth()
 
   // get data from requestedMeals using user-email: reqMeal: {_id, status, email, meal_id}, meal: {title, likes, reviews_count} 
-  const { data: myRequestedMeals, isPending } = useQuery({
+  const { data: myRequestedMeals, isPending, refetch } = useQuery({
     queryKey: ['my-requested-meals'],
     queryFn: async () => {
-      const res = await axiosPrivate.get(`/my-requested-meals/${user.email}`)
+      const res = await axiosPrivate.get(`/my-requested-meals/${user.email}?email=${user.email}`)
       const {meals, myReqMeals} = res.data
       const modifiedData = myReqMeals.map(reqMeal => {
         const targetMeal = meals.find(meal => meal._id === reqMeal.meal_id)
@@ -27,7 +27,7 @@ function RequestedMeals() {
   return (  
     <div className="px-4 py-10 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto">
       <SectionHeader title={'My Requested Meals'} />
-      <Table requestedMeals={myRequestedMeals} />
+      <Table requestedMeals={myRequestedMeals} refetch={refetch} />
     </div>
   );
 }

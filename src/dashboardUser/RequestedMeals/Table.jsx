@@ -1,4 +1,32 @@
-function Table({requestedMeals}) {
+import Swal from 'sweetalert2';
+import useAxios from '../../hooks/useAxios';
+import Button from '../../comps/Button';
+
+function Table({requestedMeals, refetch}) {
+  const {axiosPrivate} = useAxios()
+
+  // confirm for deletion; then delete
+  const handleDeleteMeal = async (id) => {
+    const confirmResult = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    })
+    if (confirmResult.isConfirmed) {
+      await axiosPrivate.delete(`/delete-requested-meal/${id}`)
+      await refetch()
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+      });
+    }
+  }
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -21,7 +49,7 @@ function Table({requestedMeals}) {
               <td className="px-4 py-4 text-sm">{rMeal.reviews_count}</td>
               <td className="px-4 py-4 text-sm">{rMeal.status}</td>
               <td className="px-4 py-4 text-sm">
-                <button className="inline-block px-4 py-1 rounded-md text-white bg-orange-600 hover:opacity-90">cancel</button>
+                <Button onClick={() => handleDeleteMeal(rMeal._id)} >Cancel</Button>
               </td>
             </tr>
           ))}

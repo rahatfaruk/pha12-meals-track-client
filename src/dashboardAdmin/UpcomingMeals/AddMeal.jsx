@@ -1,5 +1,5 @@
 import Button from "../../comps/Button";
-import AddForm from "./AddForm";
+import Modal from "./Modal";
 
 function AddMeal() {
   return (
@@ -14,14 +14,6 @@ function AddMeal() {
 
 export default AddMeal;
 
-function Modal() {
-  return (
-    <dialog id="my_modal_1" className="modal">
-      <div className="modal-box">
-        <AddForm />
-      </div>
-    </dialog>
-  );
-}
+
 
 
