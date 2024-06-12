@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import useAxios from "../../hooks/useAxios";
 
 function Details({ meal, refetchMeal }) {
-  const { _id, image, title, description, likes, post_time, ingredients, rating, admin_name, admin_email } = meal 
+  const { _id, image, title, description, likes, post_time, ingredients, rating, admin_name, admin_email, price } = meal 
   const {user} = useAuth()
   const {axiosPrivate} = useAxios()
 
@@ -17,6 +17,7 @@ function Details({ meal, refetchMeal }) {
     }
     const newRequestMeal = {
       meal_id: _id,
+      price,
       email: user.email,
       status: 'requested'
     }

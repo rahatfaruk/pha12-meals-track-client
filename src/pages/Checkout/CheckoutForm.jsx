@@ -2,12 +2,17 @@ import { useState } from "react";
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import useAxios from "../../hooks/useAxios";
+import { useParams } from "react-router-dom";
 
 function CheckoutForm() {
   const [message, setMessage] = useState('')
   const [trxId, setTrxId] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  
+  const {badge} = useParams()
   const {user} = useAuth()
+  const {axiosPrivate} = useAxios()
   const stripe = useStripe()
   const elements = useElements()
 
@@ -34,22 +39,23 @@ function CheckoutForm() {
     
     if (paymentIntent?.status === 'succeeded') {
       const {amount, id, currency} = paymentIntent
-      const utcTimeStr = new Date().toUTCString()
-      
-      toast.success('payment succeeded!')
-      setMessage('payment succeeded!')
-      setTrxId(id)
- 
+       
       // my custom payment info object
       const myPaymentInfo = {
         amount, 
         currency, 
         trx_id: id,
         email: user.email,
-        created_at: new Date(utcTimeStr).getTime()
+        created_at: new Date().getTime()
       }
       // TODO: store myPaymentInfo in db 
+      await axiosPrivate.post('/store-payment-info', myPaymentInfo)
       // TODO: Assign a badge to the user in db 
+      await axiosPrivate.patch(`/update-user?email=${user.email}`, {badge})
+
+      toast.success('payment succeeded!')
+      setMessage('payment succeeded!')
+      setTrxId(id)
     }
     else if (error) {
       toast.error(error?.message || 'A payment error occured!')

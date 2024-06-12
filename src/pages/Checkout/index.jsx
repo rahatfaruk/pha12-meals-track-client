@@ -11,8 +11,8 @@ function Checkout() {
   const {data:packageInfo, isPending} = useQuery({
     queryKey: [badge, 'package-info'],
     queryFn: async () => {
-      const res = await axiosPublic.get('/plan-packages.json')
-      return res.data.find(pkg => pkg.name === badge)
+      const res = await axiosPublic.get(`/pricing-plan?badge=${badge}`)
+      return res.data 
     }
   })
 

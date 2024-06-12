@@ -11,9 +11,9 @@ import Loading from "../../comps/Loading";
 function Membership() {
   const {axiosPublic} = useAxios()
   const {data:packages, isPending} = useQuery({
-    queryKey: ['plan-packages'],
+    queryKey: ['all-pricing-plan'],
     queryFn: async () => {
-      const res = await axiosPublic.get('/plan-packages.json')
+      const res = await axiosPublic.get('/pricing-plan')
       return res.data
     }
   })
