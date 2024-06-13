@@ -1,17 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
+import { dashboardBodyClass } from "../index";
+import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
 import Loading from "../../comps/Loading";
 import SectionHeader from "../../comps/SectionHeader";
-import useAxios from "../../hooks/useAxios";
-import { dashboardBodyClass } from "../index";
 import Table from "./Table";
 
 function AllReviews() {
   const {axiosPrivate} = useAxios()
-  const {data:reviews, isPending} = useQuery({
+  const {user} = useAuth()
+
+  const {data:reviews, isPending, refetch} = useQuery({
     queryKey: ['all-reviews', 'admin'],
     queryFn: async () => {
-      const res = await axiosPrivate.get('/reviews.json')
-      return res.data
+      const res = await axiosPrivate.get(`/all-reviews?email=${user.email}`)
+      const {meals, reviews} = res.data
+
+      const modifiedReviews = reviews.map(review => {
+        const targetMeal = meals.find(meal => meal._id === review.meal_id)
+        return {...targetMeal, ...review}
+      })
+
+      return modifiedReviews
     }
   })
 
@@ -19,7 +29,7 @@ function AllReviews() {
   return (  
     <div className={dashboardBodyClass}>
       <SectionHeader title={'All Reviews'} />
-      <Table reviews={reviews} />
+      <Table reviews={reviews} refetch={refetch} />
     </div>
   );
 }

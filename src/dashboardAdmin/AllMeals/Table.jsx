@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom"
 import Button from "../../comps/Button"
 
-function Table({meals}) {
+function Table({meals, onDeleteMeal}) {
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -21,8 +23,8 @@ function Table({meals}) {
               <td className="px-4 py-4 text-sm max-w-xs">{meal.likes}</td>
               <td className="px-4 py-4 text-sm max-w-xs">{meal.reviews_count}</td>
               <td className="px-4 py-4 text-sm max-w-xs flex gap-4 flex-wrap">
-                <Button className="bg-red-600">Delete</Button>
-                <Button >View Meal</Button>
+                <Button onClick={() => onDeleteMeal(meal._id)} className="bg-red-600">Delete</Button>
+                <Button ><Link to={`/meals/${meal._id}`}>View Meal</Link></Button>
               </td>
             </tr>
           ))}
