@@ -1,18 +1,22 @@
-import useAuth from "../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 import useUserFromDb from "../hooks/useUserFromDb";
 import SectionHeader from "../comps/SectionHeader";
 import Loading from "../comps/Loading";
+import useAxios from "../hooks/useAxios";
 
-// meals with admin email
-const meals = [
-  {_id: '1', "admin_email": "ali@example.com"},
-  {_id: '2', "admin_email": "ali@example.com"},
-]
 function AdminProfile() {
-  const {user} = useAuth()
-  const {userData, isPending} = useUserFromDb()
+  const {userData, isPending, user} = useUserFromDb()
+  const {axiosPrivate} = useAxios()
 
-  if (isPending) {return <Loading/>}
+  const { data: mealsCount, isPending:isPendingMeals } = useQuery({
+    queryKey: ['my-meals-count'],
+    queryFn: async () => {
+      const res = await axiosPrivate.get(`/my-meals-count/${user.email}`)
+      return res.data
+    }
+  })
+
+  if (isPending || isPendingMeals) {return <Loading/>}
   return (  
     <div className="px-4 py-10 bg-gray-100 dark:bg-gray-800 rounded-md">
       <SectionHeader title={'My Profile'} />
@@ -21,7 +25,8 @@ function AdminProfile() {
         <h3 className="text-2xl md:text-4xl font-bold text-orange-600">{user.displayName}</h3>
         <p>Email: {user.email}</p>
         <p>Badge: {userData.badge}</p>
-        <p>Total Meals Added: {meals.length}</p>
+        {/* <p>Total Meals Added: {meals.length}</p> */}
+        <p>Total Meals Added: {mealsCount.count}</p>
       </div>
     </div>
   );

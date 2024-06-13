@@ -9,10 +9,10 @@ function MyReviews() {
   const {axiosPrivate} = useAxios()
   const {user} = useAuth()
 
-  const { data: customReviews, isPending, refetch:refetchReviews } = useQuery({
+  const { data: customReviews, isPending, refetch } = useQuery({
     queryKey: ['my-reviews'],
     queryFn: async () => {
-      const res = await axiosPrivate.get(`/reviews-with-meals/${user.email}`)
+      const res = await axiosPrivate.get(`/reviews-with-meals/${user.email}?email=${user.email}`)
       const {meals, reviews} = res.data 
       // make an array where each review also contains correspond meal 
       let customReviews = reviews.map(review => {
@@ -27,7 +27,7 @@ function MyReviews() {
   return (  
     <div className="px-4 py-10 bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto">
       <SectionHeader title={'My Reviews'} />
-      <Table reviews={customReviews} refetchReviews={refetchReviews} />
+      <Table reviews={customReviews} refetch={refetch} />
     </div>
   );
 }

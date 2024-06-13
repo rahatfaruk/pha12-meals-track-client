@@ -2,10 +2,10 @@ import Swal from "sweetalert2"
 import Button from "../../comps/Button"
 import useAxios from "../../hooks/useAxios"
 import { Link } from "react-router-dom"
+import Modal from "./Modal"
 
-function Table({reviews, refetchReviews}) {
+function Table({reviews, refetch}) {
   const {axiosPrivate} = useAxios()
-  // console.log('table', refetchReviews);
 
   // confirm for deletion; then delete
   const handleDeleteReview = async (id) => {
@@ -44,9 +44,10 @@ function Table({reviews, refetchReviews}) {
               <td className="px-4 py-4 text-sm max-w-xs">{review.review_text}</td>
               <td className="px-4 py-4 text-sm max-w-xs">{review.rating}</td>
               <td className="px-4 py-4 text-sm flex gap-3 flex-wrap lg:flex-nowrap items-center.">
-                <Button onClick={() => console.log('edit '+review._id)} className={'!bg-blue-600'}>Edit</Button>
+                <Button onClick={() => document.getElementById(`review_edit_modal_${review._id}`).showModal()} className={'!bg-blue-600'}>Edit</Button>
                 <Button onClick={() => handleDeleteReview(review._id)} className={'bg-red-600'}>Delete</Button>
                 <Link to={`/meals/${review.meal_id}`} className="inline-block px-3 py-1 rounded-md text-white bg-orange-600 hover:opacity-90 whitespace-nowrap">View Meal</Link>
+                <Modal review={review} refetch={refetch} />
               </td>
             </tr>
           ))}
