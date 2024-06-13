@@ -1,6 +1,16 @@
 import Button from "../../comps/Button"
+import useAxios from "../../hooks/useAxios"
+import {toast} from 'react-toastify';
 
-function Table({users}) {
+
+function Table({users, refetch}) {
+  const {axiosPrivate} = useAxios()
+
+  const handleMakeAdmin = async user => {
+    await axiosPrivate.patch(`/make-admin/${user._id}`)
+    toast.success(`${user.displayName} is now an admin`)
+    refetch()
+  }
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -9,7 +19,7 @@ function Table({users}) {
             <th scope="col" className="px-4 py-3">Email</th>
             <th scope="col" className="px-4 py-3">Username</th>
             <th scope="col" className="px-4 py-3">Badge</th>
-            <th scope="col" className="px-4 py-3">Is Admin</th>
+            <th scope="col" className="px-4 py-3">Rank</th>
           </tr>
         </thead>
         <tbody>
@@ -23,7 +33,7 @@ function Table({users}) {
               <td className="px-4 py-4 text-sm max-w-xs">
                 {user?.rank === 'admin' ? 
                   <p>Admin</p> :
-                  <Button >Make admin</Button>
+                  <Button onClick={() => handleMakeAdmin(user)} >Make admin</Button>
                 }
               </td>
             </tr>

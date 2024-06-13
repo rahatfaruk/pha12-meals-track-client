@@ -25,7 +25,6 @@ function AdminProfile() {
         <h3 className="text-2xl md:text-4xl font-bold text-orange-600">{user.displayName}</h3>
         <p>Email: {user.email}</p>
         <p>Badge: {userData.badge}</p>
-        {/* <p>Total Meals Added: {meals.length}</p> */}
         <p>Total Meals Added: {mealsCount.count}</p>
       </div>
     </div>

@@ -1,15 +1,20 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
+import { toast } from "react-toastify";
 
 const inputClass = "border w-full min-w-0 px-3 py-2 rounded-md bg-gray-50 shadow dark:text-gray-700"
 function AddForm() {
   const {user} = useAuth()
-  const { register, handleSubmit, formState: {errors: formErr} } = useForm()
+  const { register, handleSubmit, formState: {errors: formErr}, reset } = useForm()
+  const {axiosPrivate} = useAxios()
 
   // handle form submit
-  const onSubmit = data => {
+  const onSubmit = async data => {
     const newMeal = {
       ...data,
+      rating: parseFloat(data.rating),
+      price: parseFloat(data.price),
       ingredients: data.ingredients.split(',').map(ing => ing.trim()),
       post_time: new Date().getTime(),
       likes: 0,
@@ -18,8 +23,10 @@ function AddForm() {
       admin_name: user.displayName
     }
 
-    // send to db
-    console.log(newMeal);
+    // send to db :post
+    await axiosPrivate.post('/add-meal', newMeal)
+    toast.success('New meal added')
+    reset()
   }
 
   return (

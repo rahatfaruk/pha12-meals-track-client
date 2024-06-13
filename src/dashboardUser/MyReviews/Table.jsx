@@ -30,7 +30,7 @@ function Table({reviews, refetch}) {
             <th scope="col" className="px-4 py-3">Meal title</th>
             <th scope="col" className="px-4 py-3">Likes</th>
             <th scope="col" className="px-4 py-3">Review</th>
-            <th scope="col" className="px-4 py-3">Rating</th>
+            <th scope="col" className="px-4 py-3">My-Rating</th>
             <th scope="col" className="px-4 py-3">Action</th>
           </tr>
         </thead>

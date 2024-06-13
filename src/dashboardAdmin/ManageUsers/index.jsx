@@ -7,10 +7,10 @@ import Table from "./Table";
 
 function ManageUsers() {
   const {axiosPrivate} = useAxios()
-  const {data:users, isPending} = useQuery({
-    queryKey: ['manage-users'],
+  const {data:users, isPending, refetch} = useQuery({
+    queryKey: ['manage-all-users'],
     queryFn: async () => {
-      const res = await axiosPrivate.get('/users.json')
+      const res = await axiosPrivate.get('/all-users')
       return res.data
     }
   })
@@ -31,7 +31,7 @@ function ManageUsers() {
         </div>
       </form>
       
-      <Table users={users}  />
+      <Table users={users} refetch={refetch}  />
     </div>
   );
 }
