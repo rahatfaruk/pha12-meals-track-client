@@ -1,13 +1,15 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
+import { toast } from "react-toastify";
 
 const inputClass = "border w-full min-w-0 px-3 py-2 rounded-md bg-gray-50 shadow dark:text-gray-700"
 
-function Modal() {
+function Modal(props) {
   return (
     <dialog id="my_modal_1" className="modal">
       <div className="modal-box">
-        <AddForm />
+        <AddForm {...props} />
       </div>
     </dialog>
   );
@@ -15,13 +17,14 @@ function Modal() {
 export default Modal;
 
 
-function AddForm() {
+function AddForm({refetch}) {
   const {user} = useAuth()
-  const { register, handleSubmit, formState: {errors: formErr} } = useForm()
+  const {axiosPrivate} = useAxios()
+  const { register, handleSubmit, formState: {errors: formErr}, reset } = useForm()
 
   // handle form submit
-  const onSubmit = data => {
-    const newMeal = {
+  const onSubmit = async data => {
+    const newUpcomingMeal = {
       ...data,
       ingredients: data.ingredients.split(',').map(ing => ing.trim()),
       post_time: new Date().getTime(),
@@ -31,8 +34,12 @@ function AddForm() {
       admin_name: user.displayName
     }
 
-    // send to db
-    console.log(newMeal);
+    // post-req to add upcoming-meal
+    await axiosPrivate.post(`/add-upcoming-meal`, newUpcomingMeal)
+    toast.success('successfully added the meal')
+    reset()
+    document.getElementById('my_modal_1').close()
+    await refetch()
   }
 
   return (

@@ -1,20 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { Search } from "react-bootstrap-icons";
+import { dashboardBodyClass } from "../index";
+import useAxios from "../../hooks/useAxios";
 import Loading from "../../comps/Loading";
 import SectionHeader from "../../comps/SectionHeader";
-import useAxios from "../../hooks/useAxios";
-import { dashboardBodyClass } from "../index";
 import Table from "./Table";
-import { Search } from "react-bootstrap-icons";
 
 function ServeMeals() {
   const {axiosPrivate} = useAxios()
-  const {data:meals, isPending} = useQuery({
-    queryKey: ['all-meals', 'admin'],
+  const {data:serveMeals, isPending, refetch} = useQuery({
+    queryKey: ['serve-meals', 'admin'],
     queryFn: async () => {
-      const res = await axiosPrivate.get('/meals.json')
-      return res.data
+      const res = await axiosPrivate.get('/serve-meals')
+      const {reqMeals, meals, users} = res.data
+      // join reqMeal with correspond meal & user
+      const modifiedReqMeals = reqMeals.map(rMeal => {
+        const targetMeal = meals.find(meal => meal._id === rMeal.meal_id)
+        const targetUser = users.find(user => user.email === rMeal.email)
+        return {...targetMeal, ...targetUser, ...rMeal}
+      })
+      return modifiedReqMeals
     }
   })
+
+  const handleServeMeal = async reqMealId => {
+    // patch req to change status
+    await axiosPrivate.patch(`/update-serve-meal/${reqMealId}`)
+    await refetch()
+    toast.success('Meal served successfully!')
+  }
 
   if(isPending) {return <Loading/>}
   return (  
@@ -32,7 +47,7 @@ function ServeMeals() {
         </div>
       </form>
 
-      <Table meals={meals} />
+      <Table serveMeals={serveMeals} onServeMeal={handleServeMeal} />
     </div>
   );
 }
