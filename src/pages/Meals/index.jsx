@@ -1,4 +1,5 @@
-import { Search } from "react-bootstrap-icons";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { maxContent } from "../../App";
 // comps
@@ -6,16 +7,58 @@ import useAxios from "../../hooks/useAxios";
 import SectionHeader from "../../comps/SectionHeader";
 import Loading from "../../comps/Loading";
 import MealCard from "../../comps/MealCard";
+import SearchNdFilter from "./SearchNdFilter";
 
 function Meals() {
+  const [searchText, setSearchText] = useState('')
+  const [customQuery, setCustomQuery] = useState({})
   const {axiosPublic} = useAxios()
+
   const {data:meals, isPending} = useQuery({
-    queryKey: ['all-meals'],
+    queryKey: ['meals', searchText, customQuery],
     queryFn: async () => {
-      const res = await axiosPublic.get('/meals')
+      const params = { "params": {searchText, ...customQuery} }
+      const res = await axiosPublic.get('/meals', params)
       return res.data
-    }
+    }, 
   })
+
+  const handleSubmitSearch = e => {
+    e.preventDefault()
+    const searchValue = e.target.search.value
+    setSearchText(searchValue)
+    setCustomQuery({})
+  }
+
+  // build custom query and send filter req
+  const handleSubmitFilter = e => {
+    e.preventDefault()
+
+    const category = e.target.category.value
+    let priceMin = (e.target.priceMin.value)
+    let priceMax = (e.target.priceMax.value)
+
+    const myQuery = {}
+
+    if (category && category!=='all') {
+      myQuery.category = category
+    }
+    if (priceMin && priceMax) {
+      priceMin = parseFloat(priceMin)
+      priceMax = parseFloat(priceMax)
+
+      if (priceMin > 0 && priceMax > 0 && priceMax > priceMin) {
+        myQuery.priceMin = priceMin
+        myQuery.priceMax = priceMax
+      } else {
+        toast.error('price range is not valid!')
+        return
+      }
+    }
+
+    setCustomQuery(myQuery)
+  }
+
 
   if(isPending) {return <Loading />}
   return (
@@ -24,27 +67,9 @@ function Meals() {
         <SectionHeader title={'All Meals'} />
 
         {/* search, filter meals */}
-        <div>
-          <form className="mb-4">
-            <div className="flex-1 flex bg-gray-200 rounded-md">
-              <input type="text" name="search" className="flex-1 bg-transparent min-w-0 py-1 px-3" placeholder="search product name" />
-              <button type="submit" className="inline-block py-2 px-3 text-xl hover:opacity-80 bg-gray-300 rounded-r-md dark:bg-gray-700"><Search/></button>
-            </div>
-          </form>
-          <div className="flex items-center gap-6">
-            <select name="category" className="border min-w-0 px-6 py-2 rounded-md bg-gray-200 dark:bg-gray-700" defaultValue={''}>
-              <option value='' disabled>Filter by Category</option>
-              <option value="breakfast">breakfast</option>
-              <option value="lunch">lunch</option>
-              <option value="dinner">dinner</option>
-            </select>
+        <SearchNdFilter handleSubmitFilter={handleSubmitFilter} handleSubmitSearch={handleSubmitSearch} searchText={searchText} customQuery={customQuery} />
 
-            <div className="flex-1 flex gap-4">
-              <input type="text" className="border min-w-0 px-3 py-2 rounded-md bg-gray-200 dark:bg-gray-700 w-1/2" placeholder="min" />
-              <input type="text" className="border min-w-0 px-3 py-2 rounded-md bg-gray-200 dark:bg-gray-700 w-1/2" placeholder="max" />
-            </div>
-          </div>
-        </div>
+        {searchText && <p className="text-center text-lg mt-6 text-gray-500">Matched with: <span className="font-semibold text-orange-600">{searchText}</span></p>}
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10">
           {meals.length > 0 ? 
