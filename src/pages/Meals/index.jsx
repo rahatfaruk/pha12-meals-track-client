@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { maxContent } from "../../App";
@@ -10,7 +11,9 @@ import MealCard from "../../comps/MealCard";
 import SearchNdFilter from "./SearchNdFilter";
 
 function Meals() {
-  const [searchText, setSearchText] = useState('')
+  const location = useLocation()
+  const locationQuery = new URLSearchParams(location.search)
+  const [searchText, setSearchText] = useState(locationQuery.get('searchText') || '')
   const [customQuery, setCustomQuery] = useState({})
   const {axiosPublic} = useAxios()
 

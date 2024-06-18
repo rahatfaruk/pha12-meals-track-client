@@ -21,7 +21,7 @@ const offers = [
 
 function WhatWeOffer() {
   return (
-    <section className="px-4 dark:bg-gray-800 dark:text-gray-100">
+    <section className="px-4 bg-gray-100 dark:bg-gray-800 dark:text-gray-100">
       <div className={`${maxContent} py-8 md:py-12`}>
         <SectionHeader title={'What We Offer'} desc={'Here is some of our benefits you will get from us'} />
 
