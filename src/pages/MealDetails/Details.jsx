@@ -19,6 +19,7 @@ function Details({ meal, refetchMeal }) {
       meal_id: _id,
       price,
       email: user.email,
+      displayName: user.displayName,
       status: 'requested'
     }
     

@@ -47,7 +47,7 @@ function Meals() {
       priceMin = parseFloat(priceMin)
       priceMax = parseFloat(priceMax)
 
-      if (priceMin > 0 && priceMax > 0 && priceMax > priceMin) {
+      if (priceMin >= 0 && priceMax >= 0 && priceMax > priceMin) {
         myQuery.priceMin = priceMin
         myQuery.priceMax = priceMax
       } else {

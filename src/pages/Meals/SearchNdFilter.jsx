@@ -14,8 +14,7 @@ function SearchNdFilter({handleSubmitFilter, handleSubmitSearch, searchText, cus
           <form onSubmit={handleSubmitFilter} className="flex flex-col lg:flex-row items-start lg:items-stretch gap-4 lg:gap-12">
             <div className="flex gap-4">
               <label className="self-center">Category:</label>
-              <select name="category" className="border min-w-0 px-6 py-2 rounded-md bg-gray-200  dark:bg-gray-700" defaultValue={customQuery.category || ''}>
-                <option value='' disabled>Filter by Category</option>
+              <select name="category" className="border min-w-0 px-6 py-2 rounded-md bg-gray-200  dark:bg-gray-700" defaultValue={customQuery.category || 'all'}>
                 <option value="all">all</option>
                 <option value="breakfast">breakfast</option>
                 <option value="lunch">lunch</option>
