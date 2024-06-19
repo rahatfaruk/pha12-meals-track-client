@@ -27,7 +27,7 @@ function StripeElements({price}) {
       setClientSecret(res.data.clientSecret);
     })
     .catch((err) => {
-      toast.error('Failed to load payment form.');
+      toast.error('Failed to load payment form. Go to homepage and come again!');
       console.log(err.message);
     })
   }, [])

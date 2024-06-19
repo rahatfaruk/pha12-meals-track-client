@@ -24,7 +24,7 @@ function Details({ meal, refetchMeal }) {
     }
     
     // send post req
-    await axiosPrivate.post('/add-requested-meal', newRequestMeal)
+    await axiosPrivate.post(`/add-requested-meal?email=${user.email}`, newRequestMeal)
     toast.success('requested-meal added!')
   }
 

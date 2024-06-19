@@ -12,7 +12,7 @@ function MyReviews() {
   const { data: customReviews, isPending, refetch } = useQuery({
     queryKey: ['my-reviews'],
     queryFn: async () => {
-      const res = await axiosPrivate.get(`/reviews-with-meals/${user.email}?email=${user.email}`)
+      const res = await axiosPrivate.get(`/my-reviews/${user.email}`)
       const {meals, reviews} = res.data 
       // make an array where each review also contains correspond meal 
       let customReviews = reviews.map(review => {

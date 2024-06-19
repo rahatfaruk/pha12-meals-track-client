@@ -13,7 +13,7 @@ function RequestedMeals() {
   const { data: myRequestedMeals, isPending, refetch } = useQuery({
     queryKey: ['my-requested-meals'],
     queryFn: async () => {
-      const res = await axiosPrivate.get(`/my-requested-meals/${user.email}?email=${user.email}`)
+      const res = await axiosPrivate.get(`/my-requested-meals/${user.email}`)
       const {meals, myReqMeals} = res.data
       const modifiedData = myReqMeals.map(reqMeal => {
         const targetMeal = meals.find(meal => meal._id === reqMeal.meal_id)

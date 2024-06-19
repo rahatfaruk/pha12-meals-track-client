@@ -1,15 +1,14 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useAuth from "../../hooks/useAuth";
-import { toast } from "react-toastify";
 import useAxios from "../../hooks/useAxios";
-import { useParams } from "react-router-dom";
 
 function CheckoutForm() {
   const [message, setMessage] = useState('')
   const [trxId, setTrxId] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  
   const {badge} = useParams()
   const {user} = useAuth()
   const {axiosPrivate} = useAxios()

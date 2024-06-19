@@ -11,9 +11,9 @@ function Payment({price}) {
       <div className={`${maxContent} py-12`}>
         <SectionHeader title={'Pay With Stripe'} />
 
-        {!user ? 
-          <p className="text-center md:text-xl font-semibold">You must login to pay</p> : 
-          <StripeElements user={user} price={price} />
+        {user ? 
+          <StripeElements user={user} price={price} /> :
+          <p className="text-center md:text-xl font-semibold">You must login to pay</p> 
         }
       </div>
     </section>
