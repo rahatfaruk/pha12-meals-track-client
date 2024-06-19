@@ -1,12 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
 import Loading from "../../comps/Loading";
 import SectionHeader from "../../comps/SectionHeader";
-import useAxios from "../../hooks/useAxios";
 import { dashboardBodyClass } from "../index";
 import Table from "./Table";
-import useAuth from "../../hooks/useAuth";
-import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 
 function AllMeals() {
   const {axiosPrivate} = useAxios()

@@ -35,7 +35,7 @@ function AddForm({refetch}) {
     }
 
     // post-req to add upcoming-meal
-    await axiosPrivate.post(`/add-upcoming-meal`, newUpcomingMeal)
+    await axiosPrivate.post(`/add-upcoming-meal?email=${user.email}`, newUpcomingMeal)
     toast.success('successfully added the meal')
     reset()
     document.getElementById('my_modal_1').close()

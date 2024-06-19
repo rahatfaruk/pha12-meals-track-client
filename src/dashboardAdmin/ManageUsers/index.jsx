@@ -1,19 +1,21 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
 import Loading from "../../comps/Loading";
 import SectionHeader from "../../comps/SectionHeader";
-import Table from "./Table";
 import SearchForm from "../../comps/SearchFormEmailNdName";
-import { useState } from "react";
+import Table from "./Table";
 
 function ManageUsers() {
   const {axiosPrivate} = useAxios()
   const [myQuery, setMyQuery] = useState({})
+  const {user} = useAuth()
 
   const {data:users, isPending, refetch} = useQuery({
     queryKey: ['manage-all-users', myQuery],
     queryFn: async () => {
-      const res = await axiosPrivate.get('/all-users', {params: myQuery})
+      const res = await axiosPrivate.get(`/all-users?userEmail=${user.email}`, {params: myQuery})
       return res.data
     }
   })

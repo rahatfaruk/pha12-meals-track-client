@@ -27,7 +27,7 @@ function Navbar() {
     try {
       await logout()
       toast.info('logged out')
-      navigate('/login')
+      navigate('/login', {replace:true})
     } catch (err) {
       toast.error('logged out failed', err.message);
     }

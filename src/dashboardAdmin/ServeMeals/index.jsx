@@ -7,16 +7,18 @@ import Loading from "../../comps/Loading";
 import SectionHeader from "../../comps/SectionHeader";
 import Table from "./Table";
 import SearchForm from "../../comps/SearchFormEmailNdName";
+import useAuth from "../../hooks/useAuth";
 
 function ServeMeals() {
   const {axiosPrivate} = useAxios()
   const [myQuery, setMyQuery] = useState({})
+  const {user} = useAuth()
 
   const {data:serveMeals, isPending, refetch} = useQuery({
     queryKey: ['serve-meals', 'admin', myQuery],
     queryFn: async () => {
-      const res = await axiosPrivate.get('/serve-meals', {params: myQuery})
-      const {reqMeals, meals, users} = res.data
+      const res = await axiosPrivate.get(`/serve-meals?userEmail=${user.email}`, {params: myQuery})
+      const {reqMeals, meals} = res.data
       // join reqMeal with correspond meal & user
       const modifiedReqMeals = reqMeals.map(rMeal => {
         const targetMeal = meals.find(meal => meal._id === rMeal.meal_id)
