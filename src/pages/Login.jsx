@@ -19,7 +19,7 @@ function Login() {
     try {
       const credential = await signInWithEP(data.email, data.password)
       // get jwt token; store into ls
-      const {data:jwtToken} = await axiosPublic.get(`/generate-jwt?email=${credential.email}`)
+      const {data:jwtToken} = await axiosPublic.get(`/generate-jwt?email=${credential.user.email}`)
       localStorage.setItem('mt:token', jwtToken)
       
       toast.success('logged in successfully!')

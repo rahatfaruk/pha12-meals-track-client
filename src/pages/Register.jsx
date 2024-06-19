@@ -22,7 +22,7 @@ function Register() {
       // send req to create user in db
       await axiosPrivate.post(`/create-user?email=${email}`, {displayName, email})
       // get jwt token; store into ls
-      const {data:jwtToken} = await axiosPublic.get(`/generate-jwt?email=${credential.email}`)
+      const {data:jwtToken} = await axiosPublic.get(`/generate-jwt?email=${credential.user.email}`)
       localStorage.setItem('mt:token', jwtToken)
       
       toast.success('user created successfully')
