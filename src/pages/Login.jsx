@@ -1,27 +1,32 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Eye, EyeSlash, Google } from "react-bootstrap-icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import useAuth from '../hooks/useAuth';
+import { Eye, EyeSlash, Google } from "react-bootstrap-icons";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import useAuth from '../hooks/useAuth';
+import useAxios from '../hooks/useAxios';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const { register, handleSubmit, formState: {errors: formErr} } = useForm()
-  const { signInWithEP, signInWithGoogle } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const { signInWithEP, signInWithGoogle } = useAuth()
+  const { axiosPublic } = useAxios()
 
   // handle form submit
-  const onSubmit = data => {
-    signInWithEP(data.email, data.password)
-    .then(() => {
+  const onSubmit = async data => {
+    try {
+      const credential = await signInWithEP(data.email, data.password)
+      // get jwt token; store into ls
+      const {data:jwtToken} = await axiosPublic.get(`/generate-jwt?email=${credential.email}`)
+      localStorage.setItem('mt:token', jwtToken)
+      
       toast.success('logged in successfully!')
-      navigate(location.state.pathname || '/')
-    })
-    .catch(err => {
+      navigate(location.state?.pathname || '/')
+    } catch (err) {
       toast.error(err.message)
-    })
+    }
   }
 
   const handleLoginWithGoogle = async () => {

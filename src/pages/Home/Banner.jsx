@@ -10,7 +10,7 @@ function Banner() {
     e.preventDefault()
     const searchText = e.target.searchText.value 
     if(searchText) {
-      navigate(`meals?searchText=${searchText}`)
+      navigate(`/meals?searchText=${searchText}`)
     } else {
       toast.info('Enter meals name to search!')
     }

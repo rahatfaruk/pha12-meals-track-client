@@ -29,6 +29,10 @@ function Details({ meal, refetchMeal }) {
   }
 
   const handleLikeBtn = async () => {
+    if (!user) {
+      toast.error('Requires login!')
+      return 
+    }
     await axiosPrivate.patch(`/inc-meal-like?email=${user.email}`, {meal_id:_id})
     refetchMeal()
   }
