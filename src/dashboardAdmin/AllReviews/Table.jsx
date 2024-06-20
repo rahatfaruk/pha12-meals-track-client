@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Button from "../../comps/Button"
 import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
 
 // meals.json :: title, likes, review_count
 // reviews.json :: review_text
@@ -34,6 +35,7 @@ export default Table
 
 function TableRow({review, refetch}) {
   const {axiosPrivate} = useAxios()
+  const {user} = useAuth()
   // confirm for deletion; then delete
   const handleDeleteReview = async (id) => {
     const alertResult = await Swal.fire({
@@ -43,7 +45,7 @@ function TableRow({review, refetch}) {
       confirmButtonText: "Yes, delete it!"
     })
     if (alertResult.isConfirmed) {
-      await axiosPrivate.delete(`/delete-review/${id}`)
+      await axiosPrivate.delete(`/delete-review/${id}?email=${user.email}`)
       await refetch()
       Swal.fire({ title: "Deleted!", text: "Your file has been deleted.", icon: "success" });
     }

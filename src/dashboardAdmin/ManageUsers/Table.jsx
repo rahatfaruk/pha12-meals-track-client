@@ -7,7 +7,7 @@ function Table({users, refetch}) {
   const {axiosPrivate} = useAxios()
 
   const handleMakeAdmin = async user => {
-    await axiosPrivate.patch(`/make-admin/${user._id}`)
+    await axiosPrivate.patch(`/make-admin/${user._id}?email=${user.email}`)
     toast.success(`${user.displayName} is now an admin`)
     refetch()
   }

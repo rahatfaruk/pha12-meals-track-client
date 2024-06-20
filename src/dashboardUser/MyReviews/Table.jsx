@@ -3,9 +3,11 @@ import Button from "../../comps/Button"
 import useAxios from "../../hooks/useAxios"
 import { Link } from "react-router-dom"
 import Modal from "./Modal"
+import useAuth from "../../hooks/useAuth"
 
 function Table({reviews, refetch}) {
   const {axiosPrivate} = useAxios()
+  const {user} = useAuth()
 
   // confirm for deletion; then delete
   const handleDeleteReview = async (id) => {
@@ -16,12 +18,15 @@ function Table({reviews, refetch}) {
       confirmButtonText: "Yes, delete it!"
     })
     if (alertResult.isConfirmed) {
-      await axiosPrivate.delete(`/delete-review/${id}`)
+      await axiosPrivate.delete(`/delete-review/${id}?email=${user.email}`)
       await refetch()
       Swal.fire({ title: "Deleted!", text: "Your file has been deleted.", icon: "success" });
     }
   }
 
+  if (reviews.length < 1) {
+    return <p className="text-center py-4 px-2 text-xl font-semibold text-gray-500">No review to show!</p>
+  }
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -35,9 +40,7 @@ function Table({reviews, refetch}) {
           </tr>
         </thead>
         <tbody>
-          {reviews.length < 1 ? 
-          <p className="text-center py-8 px-2 text-xl font-semibold">No review to show!</p> :
-          reviews.map(review => (
+          { reviews.map(review => (
             <tr key={review._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-orange-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <td className="px-4 py-4 text-sm max-w-xs min-w-48">{review.review_text}</td>
               <td className="px-4 py-4 text-sm max-w-xs min-w-48">{review.title}</td>

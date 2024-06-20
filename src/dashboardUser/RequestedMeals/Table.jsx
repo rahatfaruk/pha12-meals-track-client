@@ -1,9 +1,11 @@
 import Swal from 'sweetalert2';
 import useAxios from '../../hooks/useAxios';
 import Button from '../../comps/Button';
+import useAuth from '../../hooks/useAuth';
 
 function Table({requestedMeals, refetch}) {
   const {axiosPrivate} = useAxios()
+  const {user} = useAuth()
 
   // confirm for deletion; then delete
   const handleDeleteMeal = async (id) => {
@@ -17,7 +19,7 @@ function Table({requestedMeals, refetch}) {
       confirmButtonText: "Yes, delete it!"
     })
     if (confirmResult.isConfirmed) {
-      await axiosPrivate.delete(`/delete-requested-meal/${id}`)
+      await axiosPrivate.delete(`/delete-requested-meal/${id}?email=${user.email}`)
       await refetch()
       Swal.fire({
         title: "Deleted!",
@@ -27,6 +29,9 @@ function Table({requestedMeals, refetch}) {
     }
   }
 
+  if (requestedMeals.length < 1) {
+    return <p className="text-center py-4 px-2 text-xl font-semibold text-gray-500">No meals are requested!</p>
+  } 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -40,9 +45,7 @@ function Table({requestedMeals, refetch}) {
           </tr>
         </thead>
         <tbody>
-          {requestedMeals.length < 1 ? 
-          <p className="text-center py-8 px-2 text-xl font-semibold">No meals are requested!</p> :
-          requestedMeals.map(rMeal => (
+          { requestedMeals.map(rMeal => (
             <tr key={rMeal._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-orange-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th scope="row" className="px-4 py-4 font-medium text-gray-900 dark:text-white">{rMeal.title}</th>
               <td className="px-4 py-4">{rMeal.likes}</td>

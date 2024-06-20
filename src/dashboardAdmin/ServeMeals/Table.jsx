@@ -1,6 +1,9 @@
 import Button from "../../comps/Button"
 
 function Table({serveMeals, onServeMeal}) {
+  if (serveMeals.length < 1) {
+    return <p className="text-center py-4 px-2 text-xl font-semibold text-gray-500">No reviews availabe to show!</p>
+  } 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -14,9 +17,7 @@ function Table({serveMeals, onServeMeal}) {
           </tr>
         </thead>
         <tbody>
-          {serveMeals.length < 1 ? 
-          <p className="text-center py-8 px-2 text-xl font-semibold">No reviews availabe to show!</p> :
-          serveMeals.map(meal => <TableRow key={meal._id} meal={meal} onServeMeal={onServeMeal} />)}
+          {serveMeals.map(meal => <TableRow key={meal._id} meal={meal} onServeMeal={onServeMeal} />)}
         </tbody>
       </table>
     </div>

@@ -6,10 +6,11 @@ import { dashboardBodyClass } from "../index";
 import Table from "./Table";
 import AddMeal from "./AddMeal";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 function UpcomingMealsAdmin() {
   const {axiosPrivate} = useAxios()
+  const {user} = useAuth()
   const {data:upcomingMeals, isPending, refetch} = useQuery({
     queryKey: ['upcoming-meals', 'admin'],
     queryFn: async () => {
@@ -20,12 +21,16 @@ function UpcomingMealsAdmin() {
 
   // onclick publish-meal: 
   const handlePublishMeal = async upcomingMeal => {
-    const {_id, ...upcomingMealExceptId} = upcomingMeal
+    // const {_id, ...upcomingMealExceptId} = upcomingMeal
 
     // delte upcoming-meal from upcoming-list
-    await axiosPrivate.delete(`/delete-upcoming-meal/${upcomingMeal._id}`)
+    // await axiosPrivate.delete(`/delete-upcoming-meal/${upcomingMeal._id}?email=${user.email}`)
     // post upcoming-meal (without _id) into meals list;
-    await axiosPrivate.post(`/add-meal`, upcomingMealExceptId)
+    // await axiosPrivate.post(`/add-meal`, upcomingMealExceptId)
+
+    console.log('um', upcomingMeal, user.email);
+    await axiosPrivate.delete(`/delete-upcoming-meal/${upcomingMeal._id}?email=${user.email}`)
+    await axiosPrivate.post(`/add-meal?email=${user.email}`, upcomingMeal)
     await refetch()
     toast.success('Published successfully!')
   }

@@ -30,7 +30,7 @@ function ServeMeals() {
 
   const handleServeMeal = async reqMealId => {
     // patch req to change status
-    await axiosPrivate.patch(`/update-serve-meal/${reqMealId}`)
+    await axiosPrivate.patch(`/update-serve-meal/${reqMealId}?email=${user.email}`)
     await refetch()
     toast.success('Meal served successfully!')
   }
