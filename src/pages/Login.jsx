@@ -12,7 +12,7 @@ function Login() {
   const navigate = useNavigate()
   const location = useLocation()
   const { signInWithEP, signInWithGoogle } = useAuth()
-  const { axiosPublic } = useAxios()
+  const { axiosPublic, axiosPrivate } = useAxios()
 
   // handle form submit
   const onSubmit = async data => {
@@ -31,9 +31,20 @@ function Login() {
 
   const handleLoginWithGoogle = async () => {
     try {
-      await signInWithGoogle()
+      const credential = await signInWithGoogle()
+      const {email, displayName} = credential.user
+      // get user from db to check for existence. send req to create user in db if not exist to prevent from every login
+      const {data:existUser} = await axiosPublic.get(`/users/${email}`)
+      if (!existUser) {
+        console.log('inside existUser');
+        await axiosPrivate.post(`/create-user?email=${email}`, {displayName, email})
+      }
+      // get jwt token; store into ls
+      const {data:jwtToken} = await axiosPublic.get(`/generate-jwt?email=${email}`)
+      localStorage.setItem('mt:token', jwtToken)
+
       toast.success('logged in successfully!')
-      navigate('/')
+      navigate(location.state?.pathname || '/')
     } catch (err) {
       toast.error(err.message)
     }

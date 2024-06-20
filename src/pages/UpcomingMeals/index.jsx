@@ -25,6 +25,7 @@ function UpcomingMeals() {
   const handleLikeBtn = async (meal_id) => {
     if (!userData || userData.badge==='bronze') {
       toast.info('Only premium users can like!')
+      return
     }
     else if (userData.badge==='silver' || userData.badge==='gold' || userData.badge==='platinum') {
       await axiosPrivate.patch(`/inc-upcoming-meal-like?email=${userData.email}`, {meal_id})

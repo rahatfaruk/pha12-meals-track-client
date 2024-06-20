@@ -4,10 +4,10 @@ import { toast } from 'react-toastify';
 import useAuth from './useAuth';
 
 const axiosPublic = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'https://pha12c14-meals-track.vercel.app'
 })
 const axiosPrivate = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'https://pha12c14-meals-track.vercel.app'
 })
 
 function useAxios() {

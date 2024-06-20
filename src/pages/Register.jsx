@@ -11,7 +11,7 @@ function Register() {
   const { register, handleSubmit, formState: {errors: formErr} } = useForm()
   const navigate = useNavigate()
   const { createUserWithEP } = useAuth()
-  const {axiosPrivate} = useAxios()
+  const {axiosPrivate, axiosPublic} = useAxios()
 
   // handle form submit
   const onSubmit = async (data) => {

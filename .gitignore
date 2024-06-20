@@ -1,4 +1,6 @@
 public/*.json 
+.firebase/
+
 # Logs
 logs
 *.log
