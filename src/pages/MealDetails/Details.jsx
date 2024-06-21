@@ -33,8 +33,14 @@ function Details({ meal, refetchMeal }) {
       toast.error('Requires login!')
       return 
     }
-    await axiosPrivate.patch(`/inc-meal-like?email=${user.email}`, {meal_id:_id})
-    refetchMeal()
+    const res = await axiosPrivate.post(`/add-user-like?email=${user.email}`, { email: user.email, meal_id: _id })
+
+    if (res.data.insertedId) {
+      await axiosPrivate.patch(`/inc-meal-like?email=${user.email}`, {meal_id:_id})
+      refetchMeal()
+    } else if (res.data.message) {
+      toast.info(res.data.message)
+    }
   }
   
   return (

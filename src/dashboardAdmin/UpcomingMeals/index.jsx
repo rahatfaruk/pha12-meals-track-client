@@ -21,14 +21,6 @@ function UpcomingMealsAdmin() {
 
   // onclick publish-meal: 
   const handlePublishMeal = async upcomingMeal => {
-    // const {_id, ...upcomingMealExceptId} = upcomingMeal
-
-    // delte upcoming-meal from upcoming-list
-    // await axiosPrivate.delete(`/delete-upcoming-meal/${upcomingMeal._id}?email=${user.email}`)
-    // post upcoming-meal (without _id) into meals list;
-    // await axiosPrivate.post(`/add-meal`, upcomingMealExceptId)
-
-    console.log('um', upcomingMeal, user.email);
     await axiosPrivate.delete(`/delete-upcoming-meal/${upcomingMeal._id}?email=${user.email}`)
     await axiosPrivate.post(`/add-meal?email=${user.email}`, upcomingMeal)
     await refetch()
