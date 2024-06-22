@@ -6,15 +6,18 @@ import Loading from "../../comps/Loading";
 import SectionHeader from "../../comps/SectionHeader";
 import { dashboardBodyClass } from "../index";
 import Table from "./Table";
+import { useState } from "react";
 
 function AllMeals() {
   const {axiosPrivate} = useAxios()
   const {user} = useAuth()
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsLimit = 10
 
-  const {data:meals, isPending, refetch} = useQuery({
-    queryKey: ['all-meals', 'admin'],
+  const {data, isPending, refetch} = useQuery({
+    queryKey: ['all-meals', 'admin', currentPage],
     queryFn: async () => {
-      const res = await axiosPrivate.get(`/all-meals?email=${user.email}`)
+      const res = await axiosPrivate.get(`/all-meals?email=${user.email}`, {params: {currentPage, itemsLimit}})
       return res.data
     }
   })
@@ -35,10 +38,12 @@ function AllMeals() {
   }
 
   if(isPending) {return <Loading/>}
+  const {meals, totalPages} = data
+  
   return (  
     <div className={dashboardBodyClass}>
       <SectionHeader title={'All Meals'} />
-      <Table meals={meals} onDeleteMeal={handleDeleteMeal} />
+      <Table meals={meals} onDeleteMeal={handleDeleteMeal} totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
 }

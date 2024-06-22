@@ -1,6 +1,7 @@
 import Button from "../../comps/Button"
+import TablePagination from "../../comps/TablePagination";
 
-function Table({serveMeals, onServeMeal}) {
+function Table({serveMeals, onServeMeal, ...paginationProps}) {
   if (serveMeals.length < 1) {
     return <p className="text-center py-4 px-2 text-xl font-semibold text-gray-500">No reviews availabe to show!</p>
   } 
@@ -19,6 +20,7 @@ function Table({serveMeals, onServeMeal}) {
         <tbody>
           {serveMeals.map(meal => <TableRow key={meal._id} meal={meal} onServeMeal={onServeMeal} />)}
         </tbody>
+        <TablePagination {...paginationProps} />
       </table>
     </div>
   )

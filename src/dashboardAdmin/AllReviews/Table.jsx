@@ -3,11 +3,15 @@ import Button from "../../comps/Button"
 import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+import TablePagination from "../../comps/TablePagination";
 
 // meals.json :: title, likes, review_count
 // reviews.json :: review_text
 
-function Table({reviews, refetch}) {
+function Table({reviews, refetch, ...paginationProps}) {
+  if(reviews.length < 1) {
+    return <p className="text-center py-4 px-2 text-xl font-semibold">No reviews availabe to show!</p>
+  }
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -22,10 +26,9 @@ function Table({reviews, refetch}) {
           </tr>
         </thead>
         <tbody>
-          {reviews.length < 1 ? 
-          <p className="text-center py-8 px-2 text-xl font-semibold">No reviews availabe to show!</p> :
-          reviews.map(review => <TableRow key={review._id} review={review} refetch={refetch} />)}
+          {reviews.map(review => <TableRow key={review._id} review={review} refetch={refetch} />)}
         </tbody>
+        <TablePagination {...paginationProps} />
       </table>
     </div>
   )

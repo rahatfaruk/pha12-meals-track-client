@@ -4,8 +4,9 @@ import useAxios from "../../hooks/useAxios"
 import { Link } from "react-router-dom"
 import Modal from "./Modal"
 import useAuth from "../../hooks/useAuth"
+import TablePagination from "../../comps/TablePagination"
 
-function Table({reviews, refetch}) {
+function Table({reviews, refetch, ...paginationProps}) {
   const {axiosPrivate} = useAxios()
   const {user} = useAuth()
 
@@ -55,6 +56,7 @@ function Table({reviews, refetch}) {
             </tr>
           ))}
         </tbody>
+        <TablePagination {...paginationProps} />
       </table>
       
     </div>

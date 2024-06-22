@@ -1,5 +1,6 @@
+import TablePagination from "../../comps/TablePagination"
 
-function Table({payments}) {
+function Table({payments, ...paginationProps}) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -21,6 +22,7 @@ function Table({payments}) {
             </tr>
           ))}
         </tbody>
+        <TablePagination {...paginationProps} />
       </table>
     </div>
   )

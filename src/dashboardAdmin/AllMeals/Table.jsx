@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom"
 import Button from "../../comps/Button"
+import TablePagination from "../../comps/TablePagination"
 
-function Table({meals, onDeleteMeal}) {
+function Table(props) {
+  const { meals, onDeleteMeal, ...paginationProps } = props
 
+  if (meals.length < 1) {
+    return <p className="text-center py-4 px-4 text-xl font-semibold">No meals availabe to show!</p>
+  }
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       <table className="w-full text-sm md:text-base text-left text-gray-500 dark:text-gray-400">
@@ -15,9 +20,7 @@ function Table({meals, onDeleteMeal}) {
           </tr>
         </thead>
         <tbody>
-          {meals.length < 1 ? 
-          <p className="text-center py-8 px-2 text-xl font-semibold">No meals availabe to show!</p> :
-          meals.map(meal => (
+          {meals.map(meal => (
             <tr key={meal._id} className="odd:bg-white odd:dark:bg-gray-900 even:bg-orange-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th className="px-4 py-4 text-sm max-w-xs">{meal.title}</th>
               <td className="px-4 py-4 text-sm max-w-xs">{meal.likes}</td>
@@ -29,6 +32,8 @@ function Table({meals, onDeleteMeal}) {
             </tr>
           ))}
         </tbody>
+        {/* pagination */}
+        <TablePagination {...paginationProps}  />
       </table>
     </div>
   )

@@ -1,6 +1,7 @@
 import Button from "../../comps/Button"
+import TablePagination from "../../comps/TablePagination";
 
-function Table({upcomingMeals, onPublishMeal}) {
+function Table({upcomingMeals, onPublishMeal, ...paginationProps}) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg dark:border">
       {upcomingMeals.length < 1 ? 
@@ -21,6 +22,7 @@ function Table({upcomingMeals, onPublishMeal}) {
               <TableRow key={meal._id} meal={meal} onPublishMeal={onPublishMeal} />
             )}
           </tbody>
+          <TablePagination {...paginationProps} />
         </table>
       }
     </div>

@@ -1,9 +1,10 @@
 import Button from "../../comps/Button"
+import TablePagination from "../../comps/TablePagination";
 import useAxios from "../../hooks/useAxios"
 import {toast} from 'react-toastify';
 
 
-function Table({users, refetch}) {
+function Table({users, refetch, ...paginationProps}) {
   const {axiosPrivate} = useAxios()
 
   const handleMakeAdmin = async user => {
@@ -39,6 +40,7 @@ function Table({users, refetch}) {
             </tr>
           ))}
         </tbody>
+        <TablePagination {...paginationProps} />
       </table>
     </div>
   )

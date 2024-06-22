@@ -25,3 +25,4 @@ I have built several custom designed components while building this project. Any
   - user can review on any meal. user also can edit, delete review.
   - user can give like to any meal 
   - a user can buy any membership plan
+  - pagination used in tables

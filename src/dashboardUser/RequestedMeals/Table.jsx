@@ -2,8 +2,9 @@ import Swal from 'sweetalert2';
 import useAxios from '../../hooks/useAxios';
 import Button from '../../comps/Button';
 import useAuth from '../../hooks/useAuth';
+import TablePagination from '../../comps/TablePagination';
 
-function Table({requestedMeals, refetch}) {
+function Table({requestedMeals, refetch, ...paginationProps}) {
   const {axiosPrivate} = useAxios()
   const {user} = useAuth()
 
@@ -57,6 +58,7 @@ function Table({requestedMeals, refetch}) {
             </tr>
           ))}
         </tbody>
+        <TablePagination {...paginationProps} />
       </table>
     </div>
   )
