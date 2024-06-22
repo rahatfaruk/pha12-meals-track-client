@@ -24,7 +24,7 @@ function AddForm() {
     }
 
     // send to db :post
-    await axiosPrivate.post(`/add-meal?email=${user.email}`, newMeal)
+    await axiosPrivate.post(`/add-new-meal?email=${user.email}`, newMeal)
     toast.success('New meal added')
     reset()
   }
