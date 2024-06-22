@@ -16,6 +16,7 @@ function Table(props) {
             <th scope="col" className="px-4 py-3">Title</th>
             <th scope="col" className="px-4 py-3">Likes</th>
             <th scope="col" className="px-4 py-3">Reviews</th>
+            <th scope="col" className="px-4 py-3">Distributor</th>
             <th scope="col" className="px-4 py-3">Action</th>
           </tr>
         </thead>
@@ -25,6 +26,7 @@ function Table(props) {
               <th className="px-4 py-4 text-sm max-w-xs">{meal.title}</th>
               <td className="px-4 py-4 text-sm max-w-xs">{meal.likes}</td>
               <td className="px-4 py-4 text-sm max-w-xs">{meal.reviews_count}</td>
+              <td className="px-4 py-4 text-sm max-w-xs">{meal.admin_name}</td>
               <td className="px-4 py-4 text-sm max-w-xs flex gap-4 flex-wrap">
                 <Button onClick={() => onDeleteMeal(meal._id)} className="bg-red-600">Delete</Button>
                 <Button ><Link to={`/meals/${meal._id}`}>View Meal</Link></Button>
