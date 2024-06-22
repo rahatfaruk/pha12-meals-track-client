@@ -59,7 +59,7 @@ function Navbar() {
                 <img src={user.photoURL} alt="" className="w-full rounded-full shadow-md" />
               </figure>
 
-              <Tooltip id="profile-photo" clickable className="z-50">
+              <Tooltip id="profile-photo" clickable openOnClick className="z-50">
                 <div className='flex flex-col items-center gap-2'>
                   <p className="text-center text-lg">{user.displayName}</p>
                   <Link to={'/dashboard'} className="px-3 py-1 rounded-md text-white bg-orange-600 hover:opacity-90" onClick={handleLogout}>Dashboard</Link>

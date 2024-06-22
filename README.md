@@ -1,9 +1,12 @@
 # MealsTrack
 A Meal Management system for a university hostel. It enables administrators to manage student meals and food reviews. A fullstack mern website.
+* admin email: ali@mail.com
+* admin password: Pass00 
 
 ## about project:
 My **assignment 12 (Catgory 0014)** by programming hero, batch 9.  
-I have built several custom designed components while building this project. Any user could have any of the rank: visitor, user or admin. A person can do different things and visit different routes based on his/her rank. A person could become premium user, after buying a package (gold, silver, platinum).
+
+I have built several custom designed components while building this project. A person could be visitor, user or admin. A person can do different things and visit different routes based on his/her rank. A person could become premium user, after buying a package (gold, silver, platinum).
 - frontend (built with): react 18, tailwindcss, daisyUI, bootstrap-icons. Packages :- react-hook-form, react-tooltip, react-toastify, sweetalert2
 - backend (built with): express, mongodb, jwt
 
