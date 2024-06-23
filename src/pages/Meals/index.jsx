@@ -72,14 +72,15 @@ function Meals() {
         {/* search, filter meals */}
         <SearchNdFilter handleSubmitFilter={handleSubmitFilter} handleSubmitSearch={handleSubmitSearch} searchText={searchText} customQuery={customQuery} />
 
-        {searchText && <p className="text-center text-lg mt-6 text-gray-500">Matched with: <span className="font-semibold text-orange-600">{searchText}</span></p>}
+        {searchText && <p className="text-center. text-lg mt-6 text-gray-500">Matched with: <span className="font-semibold text-orange-600">{searchText}</span></p>}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10">
-          {meals.length > 0 ? 
-            meals.map(meal => <MealCard key={meal._id} meal={meal} />) :
-            <p className="text-lg text-gray-500">No meals found!</p>
-          }
-        </div>
+        {meals.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10">
+            { meals.map(meal => <MealCard key={meal._id} meal={meal} />) }
+          </div> 
+        ) :
+          <p className="text-lg. text-gray-500 pt-6">No meals found! Search by word (in title, category, description)!</p>
+        }
       </div>
     </section>
   );

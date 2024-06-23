@@ -6,7 +6,7 @@ function SearchNdFilter({handleSubmitFilter, handleSubmitSearch, searchText, cus
           {/* search */}
           <form onSubmit={handleSubmitSearch} className="mb-8 lg:mb-4">
             <div className="flex-1 flex rounded-md overflow-hidden">
-              <input type="text" name="search" className="flex-1 bg-gray-200 text-gray-800 rounded-l-md min-w-0 py-1 px-3" placeholder="search product name" defaultValue={searchText} />
+              <input type="text" name="search" className="flex-1 bg-gray-200 text-gray-800 rounded-l-md min-w-0 py-1 px-3" placeholder="search product by word (title, description, category)" defaultValue={searchText} />
               <button type="submit" className="inline-block py-2 px-4 text-xl hover:opacity-80 bg-gray-400 dark:bg-gray-500 rounded-r-md"><Search/></button>
             </div>
           </form>
