@@ -29,3 +29,9 @@ I have built several custom designed components while building this project. A p
   - user can give like to any meal 
   - a user can buy any membership plan
   - pagination used in tables
+
+
+## How can you run frontend locally:
+  - clone this repo
+  - create `.env.local` file inside root folder. Here, keys are: firebase config info (create a firebase project if needed) - ` VITE_apiKey, VITE_authDomain, VITE_projectId, VITE_storageBucket, VITE_messagingSenderId, VITE_appId `, stripe-publish-key - `VITE_stripePublishKey`
+  - start frontend server `npm run dev`
